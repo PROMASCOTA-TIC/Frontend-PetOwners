@@ -18,7 +18,7 @@ const PieDePagina = () => {
             }}
         >
             <div>
-                <b className='n-bold'>Información De Contacto</b>
+                <p className='n-bold'>Información De Contacto</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: '55px' }} className='minima-regular'>
                     <p>0999999999</p>
                     <p>0999999999</p>
@@ -27,13 +27,13 @@ const PieDePagina = () => {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <b className='n-bold'>Soporte Técnico</b>
+                <p className='n-bold'>Soporte Técnico</p>
                 <Link href="#" color="inherit" className='minima-regular'>Preguntas frecuentes</Link>
                 <Link href="#" color="inherit" className='minima-regular'>Publi-Reportajes</Link>
             </div>
 
             <div>
-                <b className='n-bold'>Redes Sociales</b>
+                <p className='n-bold'>Redes Sociales</p>
                 <div style={{ display: 'flex' }}>
                     <IconButton href="https://www.facebook.com" target="_blank" color='inherit'>
                         <Facebook />
