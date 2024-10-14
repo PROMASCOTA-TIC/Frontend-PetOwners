@@ -1,3 +1,5 @@
+import PieDePagina from "@/components/ui/footer/PieDePagina";
+
 export default function EnlacesDeInteres() {
     return (
         <div>
@@ -6,7 +8,7 @@ export default function EnlacesDeInteres() {
             {/* <BarraDeBusqueda /> */}
             <p>Categorias</p>
             {/* <CompartirContenido /> */}
-            {/* <PieDePagina /> */}
+            <PieDePagina />
         </div>
     );
 }  
