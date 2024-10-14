@@ -23,7 +23,10 @@ const CompartirContenido = () => {
                 ¡Tu experiencia puede hacer una gran diferencia!
             </p>
 
-            <BotonAzul />
+            <BotonAzul
+                name="Compartir"
+                link="https://example.com"
+            />
         </Box>
     );
 }
