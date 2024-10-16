@@ -8,12 +8,10 @@ const PieDePagina = () => {
     return (
         <Box
             component="footer"
-            className='bg-primary p-21 txtcolor-white txt-center'
+            className='bg-primary txtcolor-white txt-center flex-spaceAround'
             sx={{
-                display: 'flex',
+                padding: '21px 0px',
                 flexDirection: { xs: 'column', md: 'row' },
-                justifyContent: 'space-around',
-                alignItems: 'center',
                 gap: { xs: '20px', md: '0' },
             }}
         >
@@ -34,7 +32,7 @@ const PieDePagina = () => {
 
             <div>
                 <p className='n-bold'>Redes Sociales</p>
-                <div style={{ display: 'flex' }}>
+                <div className='flex=spaceAround'>
                     <IconButton href="https://www.facebook.com" target="_blank" color='inherit'>
                         <Facebook />
                     </IconButton>
