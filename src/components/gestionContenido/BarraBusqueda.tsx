@@ -22,7 +22,11 @@ const BarraDeBusqueda = () => {
                     sx={{
                         borderRadius: '15px',
                         backgroundColor: 'white',
-                        minWidth: '300px',
+                        // Ajusta el ancho mínimo según el tamaño de pantalla
+                        minWidth: {
+                            xs: '200px', // Para pantallas pequeñas
+                            md: '300px', // Para pantallas medianas y mayores
+                        },
                         '& .MuiOutlinedInput-root': {
                             '& fieldset': {
                                 borderRadius: '15px',
@@ -36,8 +40,8 @@ const BarraDeBusqueda = () => {
                 />
 
                 <IconButton
-                className="bg-secondary"
-                    sx={{ borderRadius: '100px'}}
+                    className="bg-secondary"
+                    sx={{ borderRadius: '100px' }}
                 >
                     <Search />
                 </IconButton>

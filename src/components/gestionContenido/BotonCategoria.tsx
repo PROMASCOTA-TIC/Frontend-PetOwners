@@ -1,5 +1,6 @@
 import { Button, Box } from '@mui/material'; // Asegúrate de tener la última versión
 import React from 'react';
+
 import Link from 'next/link';
 
 interface BotonCategoriaProps {
@@ -17,8 +18,8 @@ const BotonCategoria: React.FC<BotonCategoriaProps> = ({ name, icon: Icon, link 
                 sx={{
                     flexDirection: 'column',
                     padding: 0,
-                    width: 400,
-                    height: 200,
+                    width: { xs: '200px', md: '400px' }, // Ancho: 100% en pantallas pequeñas, 400px en pantallas medianas y más
+                    height: { xs: '150px', md: '200px' }, // Altura: 150px en pantallas pequeñas, 200px en pantallas medianas y más
                     borderRadius: '15px',
                 }}
             >
@@ -41,7 +42,10 @@ const BotonCategoria: React.FC<BotonCategoriaProps> = ({ name, icon: Icon, link 
                         height: '100%',
                     }}
                 >
-                    <Icon sx={{ fontSize: 80 }} />
+                    <Icon
+                        sx={{
+                            fontSize: {xs: '40px', md: '80px'}
+                        }} />
                 </Box>
             </Button>
         </Link>
