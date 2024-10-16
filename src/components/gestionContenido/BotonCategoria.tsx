@@ -1,37 +1,51 @@
-// import Link from 'next/link';
-// import { Box, Typography } from '@mui/material';
+import { Button, Box } from '@mui/material'; // Asegúrate de tener la última versión
+import React from 'react';
+import Link from 'next/link';
 
-// interface IconButtonProps {
-//   text: string;
-//   icon: React.ReactNode;
-//   route: string;
-// }
+interface BotonCategoriaProps {
+    name: string;
+    icon: React.ElementType;
+    link: string;
+}
 
-// const BotonCategoria: React.FC<IconButtonProps> = ({ text, icon, route }) => {
-//   return (
-//     <Link href={route} passHref>
-//       <Box
-//         sx={{
-//           display: 'flex', 
-//           flexDirection: 'column', 
-//           alignItems: 'center',
-//           textTransform: 'none', 
-//           padding: '10px',
-//           textDecoration: 'none',
-//           backgroundColor: '#f0f0f0',
-//           '&:hover': {
-//             backgroundColor: 'rgba(0, 0, 0, 0.1)',
-//           },
-//           cursor: 'pointer',
-//         }}
-//       >
-//         <Typography variant="body1" sx={{ marginBottom: '5px', textAlign: 'center' }}>
-//           {text}
-//         </Typography>
-//         <Box>{icon}</Box>
-//       </Box>
-//     </Link>
-//   );
-// };
+const BotonCategoria: React.FC<BotonCategoriaProps> = ({ name, icon: Icon, link }) => {
+    return (
+        <Link href={link} passHref>
+            <Button
+                variant="contained"
+                className='bg-tertiary20 txtcolor-primary flex-spaceBetween'
+                sx={{
+                    flexDirection: 'column',
+                    padding: 0,
+                    width: 400,
+                    height: 200,
+                    borderRadius: '15px',
+                }}
+            >
+                <Box
+                    className='bg-primary txtcolor-white h2-semiBold flex-center'
+                    sx={{
+                        width: '100%',
+                        height: '52px',
+                        borderBottom: '1px solid #ddd',
+                        textTransform: 'none',
+                        borderRadius: '15px 15px 0 0',
+                    }}
+                >
+                    {name}
+                </Box>
+                <Box
+                    className='flex-center'
+                    sx={{
+                        width: '100%',
+                        height: '100%',
+                    }}
+                >
+                    <Icon sx={{ fontSize: 80 }} />
+                </Box>
+            </Button>
+        </Link>
+    )
+}
 
-// export default BotonCategoria;
+export default BotonCategoria
