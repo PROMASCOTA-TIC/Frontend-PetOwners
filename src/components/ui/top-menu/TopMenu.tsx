@@ -29,7 +29,7 @@ export const TopMenu = () => {
 
     return (
         <AppBar position="static" style={{ background: '#0000001a' }}>
-            <Container maxWidth="xl" style={{ background: '#0000001a' }}>
+            <Container maxWidth="xl">
                 <Toolbar disableGutters style={{ minHeight: '48px', maxHeight: '48px' }}>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} style={{ height: 'inherit' }}>
                         <IconButton
