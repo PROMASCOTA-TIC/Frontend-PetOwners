@@ -6,10 +6,8 @@ import '/src/assets/styles/gestionContenido/general.css';
 const BarraDeBusqueda = () => {
     return (
         <Box
-            className='bg-tertiary20 p-21 txt-center txtcolor-primary'
+            className='bg-tertiary20 p-21 txt-center txtcolor-primary flex-column'
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
                 gap: '34px'
             }}
