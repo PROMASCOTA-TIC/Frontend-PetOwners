@@ -222,6 +222,12 @@ input::placeholder {
     text-align: center;
 }
 
+.txt-justify {
+    text-align: justify;
+}
+
+/***********************************************************************************************************************/
+                                        /**************** Flex ***********************/
 .flex-center {
     display: flex;
     justify-content: center;
@@ -238,4 +244,9 @@ input::placeholder {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }
