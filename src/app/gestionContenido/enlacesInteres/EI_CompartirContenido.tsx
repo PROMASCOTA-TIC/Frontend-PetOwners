@@ -4,7 +4,7 @@ import BotonAzul from '@/components/gestionContenido/BotonAzul';
 
 import '/src/assets/styles/gestionContenido/general.css';
 
-const CompartirContenido = () => {
+const EI_CompartirContenido = () => {
     return (
         <Box
             className='bg-tertiary20 p-21 txt-center txtcolor-primary'
@@ -31,4 +31,4 @@ const CompartirContenido = () => {
     );
 }
 
-export default CompartirContenido;
+export default EI_CompartirContenido;
