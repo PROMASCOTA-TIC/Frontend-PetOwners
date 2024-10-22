@@ -1,4 +1,4 @@
-import EntradaArticulo from "@/components/gestionContenido/EntradaArticulo";
+import EntradaArticulo from "@/app/gestionContenido/enlacesInteres/categorias/articulo/EntradaArticulo";
 import PieDePagina from "@/components/ui/footer/PieDePagina";
 import { TopMenu } from "@/components/ui/top-menu/TopMenu";
 

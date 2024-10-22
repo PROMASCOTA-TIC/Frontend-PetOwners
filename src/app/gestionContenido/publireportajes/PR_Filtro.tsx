@@ -38,9 +38,11 @@ export default function PR_Filtro() {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={21}>Twenty one</MenuItem>
-                        <MenuItem value={22}>Twenty one and a half</MenuItem>
+                        <MenuItem value={0}>Nuevos Productos</MenuItem>
+                        <MenuItem value={1}>Nuevos Servicios</MenuItem>
+                        <MenuItem value={2}>Eventos</MenuItem>
+                        <MenuItem value={3}>Ofertas</MenuItem>
+                        <MenuItem value={3}>Innovación y Tecnología</MenuItem>
                     </Select>
                 </FormControl>
             </div>
