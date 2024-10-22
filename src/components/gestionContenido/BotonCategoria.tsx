@@ -27,7 +27,7 @@ const BotonCategoria: React.FC<BotonCategoriaProps> = ({ name, icon: Icon, link 
                     className='bg-primary txtcolor-white h2-semiBold flex-center'
                     sx={{
                         width: '100%',
-                        height: '52px',
+                        height: 'auto',
                         borderBottom: '1px solid #ddd',
                         textTransform: 'none',
                         borderRadius: '15px 15px 0 0',
