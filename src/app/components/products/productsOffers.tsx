@@ -17,7 +17,7 @@ const ProductOffers: React.FC<ProductOffersProps> = ({ ofertsList }) => {
     return (
         <div className="w-full overflow-hidden relative">
             <h2 className="text-xl font-bold mb-4">Ofertas De Productos</h2>
-            <div className="flex justify-center overflow-x-auto space-x-4 pb-4 pr-8 scrollbar-hide">
+            <div className="flex justify-center overflow-x-auto space-x-4 scrollbar-hide ">
                 {ofertsList.map((product) => (
                     <div
                         key={product.id}

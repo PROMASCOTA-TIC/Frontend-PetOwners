@@ -1,6 +1,7 @@
 import { TopMenu } from "@/components/ui/top-menu/TopMenu";
 import { ProductCarousel, ProductOffers } from "../components";
 import { productImage } from "@/assets/images";
+import { ZoneAndShipping } from "../components/zone-shipping/zoneAndShipping";
 
 const products = [
   {
@@ -96,8 +97,8 @@ const productsOffers= [
 export default function Home() {
   return (
     <div>
-      <h1>Hola Mundo</h1>
       <TopMenu />
+      <ZoneAndShipping />
       <ProductCarousel products={products} />
       <ProductOffers ofertsList={productsOffers} />
     </div>

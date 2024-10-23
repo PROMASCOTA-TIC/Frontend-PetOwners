@@ -1,179 +1,102 @@
-"use client";
-import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Box, Button, FormControl, FormLabel, Grid2, styled, TextField } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '@/validations/registerSchema';
-import "./Login.css"
-import Image from 'next/image';
-// import icon from '@/assets/images/icon.png';
-import { icon, fondoDuenos } from '@/assets/images';
-
-const Img = styled("img")({
-  width: "100%",
-  height: "100vh",
-});
-
-type Inputs = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-};
+import { theme } from "@/config/theme.config";
+import { Box, Grid2, Typography } from "@mui/material";
+import Image from "next/image";
+// import LogoVerde from "@/assets/images/logoVerde.png";
+// import Imagen from "@/assets/images/Foto.png";
+import { icon, fondoDuenos } from "@/assets/images";
+import { RegisterForm } from "./registerForm";
 
 export default function Login() {
-
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<Inputs>({
-    resolver: zodResolver(registerSchema),
-    mode: 'onChange', // Cambia el modo para validar en tiempo real
-  });
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
-  const onSubmit = (data: Inputs) => {
-    console.log(data);
-  };
-
   return (
-    <Grid2 container
-      style={{
-        margin: 0,
-        padding: 0,
-        height: '50vh'
-      }}
-    >
-      <Grid2 size={{ xs: 10, sm: 8, md: 7, lg: 7 }}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <Box
-          style={{
+    <div>
+      <Grid2 container
+        sx={{
+          textAlign: 'center',
+          height: '100vh',
+          fontFamily: theme.typography.fontFamily,
+        }} >
+        <Grid2 size={{ xs: 12, md: 7 }}
+          sx={{
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column',
-            marginBottom: 34,
-            marginTop: 30
-          }}
-        >
-          <span style={{ marginBottom: 15, color: '#004040' }}>PROMASCOTA</span>
-          {/* <img src="src\assets\pictures\icon.png" alt="logo" /> */}
-          <Image src={icon} alt="logo promascota" />
-        </Box>
-        <Box
-          className="login-container"
-          style={{
-            margin: '0px 0px 20px 0px',
-            padding: 20,
-            width: '50%'
-          }}
-        >
+            padding: { xs: '20px', md: '0' },
+          }} >
           <Box
-            style={{
-              fontSize: 34,
-              fontWeight: 'bold',
-              margin: '34px 0px'
-            }}
-          >
-            Crear cuenta
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              marginBottom: { xs: '20px', md: '34px' },
+              marginTop: { xs: '10px', md: '21px' }
+            }} >
+            <Typography
+              sx={{
+                fontSize: { xs: '32px', md: '42px' },
+                color: theme.palette.primary.main,
+              }}>
+              PROMASCOTA
+            </Typography>
+            <Image src={icon}
+              style={{
+                width: '80px',
+                height: '80px',
+                marginTop: '8px',
+              }}
+              alt="logo"
+              priority
+            />
           </Box>
-          <FormControl className="form-group" component="form" onSubmit={handleSubmit(onSubmit)}>
-            <FormLabel htmlFor="name">Nombre</FormLabel>
-            <TextField
-              id="name"
-              error={!!errors.name}
-              placeholder="Ingrese su nombre"
-              {...register('name')}
-            />
-            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-
-            <FormLabel htmlFor="email">Correo electrónico</FormLabel>
-            <TextField
-              id="email"
-              error={!!errors.email}
-              placeholder="Ingrese su correo electrónico"
-              {...register('email')}
-            />
-            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-
-            <FormLabel htmlFor="password">Contraseña</FormLabel>
-            <OutlinedInput
-              id="password"
-              error={!!errors.password}
-              type={showPassword ? 'text' : 'password'}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              {...register('password')}
-            />
-            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-
-            <FormLabel htmlFor="passwordConfirm">Confirmar Contraseña</FormLabel>
-            <OutlinedInput
-              id="passwordConfirm"
-              error={!!errors.passwordConfirm}
-              type={showPassword ? 'text' : 'password'}
-              {...register('passwordConfirm')}
-            />
-            {errors.passwordConfirm?.message && <p className="text-red-500">{errors.passwordConfirm.message}</p>}
-
-            <Box style={{ margin: '20px 0' }} className="button-is">
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                Iniciar Sesión
-              </Button>
-            </Box>
-
-          </FormControl>
-        </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              backgroundColor: 'rgba(70, 218, 105, 0.08)',
+              padding: { xs: '10px 20px', md: '5px 30px' },
+              width: { xs: '90%', sm: '80%', lg: '60%' },
+              borderRadius: '20px',
+            }}>
+            <Typography
+              sx={{
+                fontSize: { xs: '28px', md: '36px' },
+                fontWeight: 'bold',
+                margin: { xs: '20px 0px', md: '34px 0px' },
+                color: theme.palette.primary.main,
+              }}
+            >
+              Inicio de sesión
+            </Typography>
+            <RegisterForm />
+          </Box>
+        </Grid2>
+        <Grid2 size={{ xs: 0, md: 5 }}
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            margin: 0,
+            padding: 0,
+            position: 'relative',
+            '::after': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 64, 64, 0.4)',
+              pointerEvents: 'none',
+            }
+          }}>
+          <Image src={fondoDuenos} alt="imagen"
+            style={{
+              margin: 0,
+              padding: 0,
+              width: '100%',
+              height: '100vh',
+            }}
+            priority
+          />
+        </Grid2>
       </Grid2>
-      <Grid2 size={{ xs: 2, sm: 4, md: 5, lg: 5 }}
-        className="img-container"
-        style={{
-          margin: 0,
-          padding: 0,
-          height: '100vh',
-        }}
-      >
-        <Image 
-          src={fondoDuenos} 
-          alt="logo promascota"
-          placeholder='blur'
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        />
-      </Grid2>
-    </Grid2>
+    </div>
   );
 }

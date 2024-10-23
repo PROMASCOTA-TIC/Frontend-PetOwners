@@ -4,6 +4,7 @@ import ProductCard from './productCard';
 import { IconButton, Typography } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { StaticImageData } from 'next/image';
+import { themePalette } from '@/config/theme.config';
 
 interface Product {
     title: string;
@@ -50,13 +51,13 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
 
     return (
         <div className="w-full flex flex-col">
-            <Typography variant="h5" className="mb-4 font-bold">
+            <Typography variant="h5" className="mb-4 font-bold ms-[68px]">
                 Nuevos productos
             </Typography>
             <div className="mx-[63px] flex items-center justify-between">
-                <div className="bg-[#46DA69] rounded-full">
+                <div className={`bg-[${themePalette.terciary}] rounded-full`} style={{ background: themePalette.terciary }}>
                     <IconButton onClick={handlePrev} disabled={currentIndex === 0}>
-                        <ArrowBackIos className="text-[#004040]" />
+                        <ArrowBackIos className={`text-[${themePalette.primary}]`} style={{ color: themePalette.primary }} />
                     </IconButton>
                 </div>
                 <div className="relative overflow-hidden">
@@ -82,12 +83,12 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
                         ))}
                     </div>
                 </div>
-                <div className="bg-[#46DA69] rounded-full">
+                <div className={`bg-[${themePalette.terciary}] rounded-full`} style={{ background: themePalette.terciary }}>
                     <IconButton
                         onClick={handleNext}
                         disabled={currentIndex >= products.length - visibleItems}
                     >
-                        <ArrowForwardIos className="text-[#004040]" />
+                        <ArrowForwardIos className={`text-[${themePalette.primary}]`} style={{ color: themePalette.primary }} />
                     </IconButton>
                 </div>
             </div>
