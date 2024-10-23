@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
-import BotonAzul from '@/components/gestionContenido/BotonAzul';
+import BotonAzul from '@/components/gestionContenido/botones/BotonAzul';
 
 import '/src/assets/styles/gestionContenido/general.css';
 

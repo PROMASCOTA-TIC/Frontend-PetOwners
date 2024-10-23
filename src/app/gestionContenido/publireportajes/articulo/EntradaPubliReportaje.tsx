@@ -4,7 +4,7 @@ import React from 'react'
 import '/src/assets/styles/gestionContenido/general.css';
 import '/src/assets/styles/gestionContenido/estilos.css';
 import { Download } from '@mui/icons-material';
-import BotonAzul from '@/components/gestionContenido/BotonAzul';
+import BotonAzul from '@/components/gestionContenido/botones/BotonAzul';
 import Link from 'next/link';
 
 const EntradaPubliReportaje = () => {

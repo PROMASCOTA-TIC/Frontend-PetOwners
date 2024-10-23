@@ -3,7 +3,7 @@ import React from 'react'
 import { Box } from '@mui/material';
 import { CleanHands, FoodBank, Healing, HealthAndSafety, School, Security, SportsGymnastics } from '@mui/icons-material';
 
-import BotonCategoria from "@/components/gestionContenido/BotonCategoria";
+import BotonCategoria from "@/components/gestionContenido/botones/BotonCategoria";
 
 const EI_Categorias = () => {
   const buttons = [

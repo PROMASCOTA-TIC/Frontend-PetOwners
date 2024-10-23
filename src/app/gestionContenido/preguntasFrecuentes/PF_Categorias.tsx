@@ -3,7 +3,7 @@ import React from 'react'
 import { Box } from '@mui/material';
 import { ManageAccounts, Payment, Security, Store, SupportAgent, UploadFile } from '@mui/icons-material';
 
-import BotonCategoria from "@/components/gestionContenido/BotonCategoria";
+import BotonCategoria from "@/components/gestionContenido/botones/BotonCategoria";
 
 const PF_Categorias = () => {
   const buttons = [
