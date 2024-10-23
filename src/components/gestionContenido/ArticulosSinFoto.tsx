@@ -25,7 +25,7 @@ const ArticulosSinFoto: React.FC<ArticulosSinFotoProps> = ({ articulos }) => {
         >
             {articulos.map((articulo) => (
                 <div key={articulo.id} className='articulo_contenedor'>
-                    <h2 className='h2-semiBold txtcolor-secondary'>{articulo.titulo}</h2>
+                    <h2 className='h2-semiBold txtcolor-secondary txt-justify'>{articulo.titulo}</h2>
                     <p className='txt-justify'>{articulo.descripcion}</p>
 
                     {/* ************************************************************************* */}

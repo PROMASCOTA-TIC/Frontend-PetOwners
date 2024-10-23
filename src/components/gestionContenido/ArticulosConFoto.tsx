@@ -27,7 +27,7 @@ const ArticulosConFoto: React.FC<ArticulosConFotoProps> = ({ articulos }) => {
             {articulos.map((articulo) => (
                 <div key={articulo.id} className='categorias_articulo_contenedor'>
                     <div className='flex-column' style={{ width: '90%', gap: '8px', paddingRight: '34px' }}>
-                        <h2 className='h2-semiBold txtcolor-secondary'>{articulo.titulo}</h2>
+                        <h2 className='h2-semiBold txtcolor-secondary txt-justify'>{articulo.titulo}</h2>
                         <p className='txt-justify'>{articulo.descripcion}</p>
 
 
