@@ -113,10 +113,10 @@ const EncuestaNegativa: React.FC<EncuestaNegativaProps > = ({ open, handleClose 
                 <Box 
                 className='flex-center'
                 sx={{ marginTop: '16px', gap:'34px' }}>
-                    <Button variant="contained" onClick={handleSubmit} className='bg-secondary'>
+                    <Button variant="contained" onClick={handleSubmit} className='bg-secondary' style={{ textTransform: 'none' }}>
                         Enviar
                     </Button>
-                    <Button variant="outlined" onClick={handleClose} style={{ borderColor: '#00AA28',color: '#00AA28' }}>
+                    <Button variant="outlined" onClick={handleClose} style={{ borderColor: '#00AA28',color: '#00AA28', textTransform: 'none' }}>
                         Cancelar
                     </Button>
                 </Box>

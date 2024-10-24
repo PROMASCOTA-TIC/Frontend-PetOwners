@@ -11,7 +11,7 @@ const PF_Categorias = () => {
     { name: 'Registro y Cuenta', icon: ManageAccounts, link: '' },
     { name: 'Compras y Pagos', icon: Payment, link: '' },
     { name: 'Productos y Servicios', icon: Store, link: '' },
-    { name: 'Soporte Al Cliente', icon: SupportAgent, link: '' },
+    { name: 'Soporte al Cliente', icon: SupportAgent, link: '' },
     { name: 'Seguridad y Privacidad', icon: Security, link: '' },
   ];
 

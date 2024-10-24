@@ -31,6 +31,7 @@ const EntradaArticulo = () => {
                     className='bg-secondary n-regular flex-center'
                     sx={{
                         marginTop: '21px',
+                        textTransform: 'none',
                         width: { xs: 'auto', md: 'auto' },
                         height: { xs: '40px', md: '50px' }
                     }}>
