@@ -1,4 +1,4 @@
-import { theme } from "@/config/theme.config";
+import { themePalette } from "@/config/theme.config";
 import { Box, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
 // import LogoVerde from "@/assets/images/logoVerde.png";
@@ -13,7 +13,8 @@ export default function Login() {
         sx={{
           textAlign: 'center',
           height: '100vh',
-          fontFamily: theme.typography.fontFamily,
+          // fontFamily: theme.typography.fontFamily,
+          fontFamily: themePalette.FONT_GLOBAL,
         }} >
         <Grid2 size={{ xs: 12, md: 7 }}
           sx={{
@@ -33,7 +34,8 @@ export default function Login() {
             <Typography
               sx={{
                 fontSize: { xs: '32px', md: '42px' },
-                color: theme.palette.primary.main,
+                // color: theme.palette.primary.main,
+                color: themePalette.primary,
               }}>
               PROMASCOTA
             </Typography>
@@ -61,7 +63,8 @@ export default function Login() {
                 fontSize: { xs: '28px', md: '36px' },
                 fontWeight: 'bold',
                 margin: { xs: '20px 0px', md: '34px 0px' },
-                color: theme.palette.primary.main,
+                // color: theme.palette.primary.main,
+                color: themePalette.primary,
               }}
             >
               Inicio de sesión

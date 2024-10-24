@@ -1,7 +1,9 @@
 import { TopMenu } from "@/components/ui/top-menu/TopMenu";
 import { ProductCarousel, ProductOffers } from "../components";
 import { productImage } from "@/assets/images";
-import { ZoneAndShipping } from "../components/zone-shipping/zoneAndShipping";
+import { ZoneAndShipping } from "../components/landing/zoneAndShipping";
+import TipoMascota from "../components/landing/tipoMascota";
+import PieDePagina from "@/components/ui/footer/pieDePagina";
 
 const products = [
   {
@@ -100,7 +102,9 @@ export default function Home() {
       <TopMenu />
       <ZoneAndShipping />
       <ProductCarousel products={products} />
+      <TipoMascota />
       <ProductOffers ofertsList={productsOffers} />
+      <PieDePagina />
     </div>
   );
 }

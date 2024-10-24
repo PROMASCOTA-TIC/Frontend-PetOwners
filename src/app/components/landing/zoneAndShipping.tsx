@@ -29,8 +29,8 @@ export const ZoneAndShipping = () => {
                     onChange={handleDeliveryChange}
                     label="Opciones entrega"
                 >
-                    <MenuItem value="Entrega">Entrega</MenuItem>
-                    <MenuItem value="Recoger">Recoger</MenuItem>
+                    <MenuItem value="Entrega">Entrega a domicilio</MenuItem>
+                    <MenuItem value="Recoger">Recoger en tiendas</MenuItem>
                 </Select>
             </FormControl>
 
@@ -42,9 +42,11 @@ export const ZoneAndShipping = () => {
                     onChange={handleSectorChange}
                     label="Sector"
                 >
-                    <MenuItem value="Norte">Norte</MenuItem>
-                    <MenuItem value="Sur">Sur</MenuItem>
-                    <MenuItem value="Centro">Centro</MenuItem>
+                    <MenuItem value="Norte">Norte de Quito</MenuItem>
+                    <MenuItem value="Centro">Centro de Quito</MenuItem>
+                    <MenuItem value="Sur">Sur de Quito</MenuItem>
+                    <MenuItem value="ValleTumbaco">Valle de Tumbaco</MenuItem>
+                    <MenuItem value="ValleChillos">Valle de los Chillos</MenuItem>
                 </Select>
             </FormControl>
 

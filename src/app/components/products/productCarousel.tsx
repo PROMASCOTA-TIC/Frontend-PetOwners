@@ -51,9 +51,12 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ products }) => {
 
     return (
         <div className="w-full flex flex-col">
-            <Typography variant="h5" className="mb-4 font-bold ms-[68px]">
+            {/* <Typography variant="h5" className="mb-4 font-bold ms-[68px]">
                 Nuevos productos
-            </Typography>
+            </Typography> */}
+            <h2 className="text-xl mb-4 font-bold ms-[68px]">
+                Nuevos productos
+            </h2>
             <div className="mx-[63px] flex items-center justify-between">
                 <div className={`bg-[${themePalette.terciary}] rounded-full`} style={{ background: themePalette.terciary }}>
                     <IconButton onClick={handlePrev} disabled={currentIndex === 0}>

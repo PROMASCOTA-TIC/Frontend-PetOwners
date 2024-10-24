@@ -15,9 +15,9 @@ interface ProductOffersProps {
 const ProductOffers: React.FC<ProductOffersProps> = ({ ofertsList }) => {
 
     return (
-        <div className="w-full overflow-hidden relative">
-            <h2 className="text-xl font-bold mb-4">Ofertas De Productos</h2>
-            <div className="flex justify-center overflow-x-auto space-x-4 scrollbar-hide ">
+        <div className="w-full overflow-hidden relative mt-[34px]">
+            <h2 className="text-xl font-bold mb-4 ms-[68px]">Ofertas De Productos</h2>
+            <div className="flex justify-center overflow-x-auto space-x-4 scrollbar-hide mt-[21px]">
                 {ofertsList.map((product) => (
                     <div
                         key={product.id}

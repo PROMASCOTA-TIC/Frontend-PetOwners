@@ -26,7 +26,7 @@ export const RegisterForm = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
-    // const [preferences, setPreferences] = useState(false);
+    const [preferences, setPreferences] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -40,7 +40,7 @@ export const RegisterForm = () => {
 
     const onSubmit = (data: Inputs) => {
         console.log(data);
-        // setPreferences(true);
+        setPreferences(true);
     };
 
     return (
