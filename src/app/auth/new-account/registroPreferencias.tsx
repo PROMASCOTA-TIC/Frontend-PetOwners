@@ -1,5 +1,6 @@
 import { ListaPreferencias } from "@/app/components"
 import BlindIcon from '@mui/icons-material/Blind';
+import { Box, Button } from "@mui/material";
 
 const preferenciasDueños = [
     {
@@ -67,11 +68,37 @@ const preferenciasMascotas = [
     },
 ]; 
 
-export const RegistroPreferencias = () => {
+interface RegistroPreferenciasProps {
+    setPreferences: (preferences: any) => void;
+}
+
+export const RegistroPreferencias = ({ setPreferences }: RegistroPreferenciasProps) => {
+
     return (
         <div>
-            <h2 className="">Dueño de mascotas</h2>
+            <h2 className="font-semibold mb-[21px]">Para ti como dueño de mascotas:</h2>
             <ListaPreferencias opciones= {preferenciasDueños} />
+            <h2 className="font-semibold my-[21px]">Para tus mascotas:</h2>
+            <ListaPreferencias opciones= {preferenciasMascotas} />
+            <Box style={{ margin: '20px 0' }} className="button-is space-x-e21">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className="h-e34 bg-primary text-white rounded-b20 normal-case"
+                    onClick={() => setPreferences(false)}
+                >
+                    Regresar
+                </Button>
+                
+                <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    className="h-e34 bg-primary text-white rounded-b20 normal-case"
+                >
+                    Registrar
+                </Button>
+            </Box>
         </div>
 
     )

@@ -48,7 +48,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ preferences, setPref
 
     return (
         <FormControl className="form-group" component="form" onSubmit={handleSubmit(onSubmit)}>
-            <FormLabel htmlFor="name">Nombre</FormLabel>
+            <FormLabel htmlFor="name" style={{ margin: "0px 0px 10px 0px" }}>Nombre</FormLabel>
             <TextField
                 id="name"
                 error={!!errors.name}
@@ -100,7 +100,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ preferences, setPref
                 <Button
                     variant="contained"
                     color="primary"
-                // type="submit"
+                    className="h-e34 bg-primary text-white rounded-[20px] normal-case"
                 >
                     Cancelar
                 </Button>
@@ -109,6 +109,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ preferences, setPref
                     variant="contained"
                     color="primary"
                     type="submit"
+                    className="h-e34 bg-primary text-white rounded-[20px] normal-case"
                 >
                     Continuar
                 </Button>

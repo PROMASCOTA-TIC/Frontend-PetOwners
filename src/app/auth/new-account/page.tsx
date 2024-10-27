@@ -22,6 +22,7 @@ export default function Login() {
             alignItems: 'center',
             flexDirection: 'column',
             padding: { xs: '20px', md: '0' },
+            marginBottom: "21px",
           }} >
           <Box
             sx={{
@@ -60,14 +61,14 @@ export default function Login() {
               sx={{
                 fontSize: { xs: '28px', md: '36px' },
                 fontWeight: 'bold',
-                margin: { xs: '20px 0px', md: '34px 0px' },
+                margin: { xs: '21px 0px', md: '21px 0px' },
               }}
               className="text-primary"
             >
-              Crear cuenta
+              {preferences ? 'Preferencias y temas de interés' : 'Crear cuenta'}
             </Typography>
             {preferences ?
-              <RegistroPreferencias />
+              <RegistroPreferencias setPreferences={ setPreferences } />
             : 
               <RegisterForm preferences={ preferences } setPreferences={ setPreferences } /> }
           </Box>

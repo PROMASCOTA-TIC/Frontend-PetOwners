@@ -1,6 +1,4 @@
-"use client";
 import React from 'react'
-import BlindIcon from '@mui/icons-material/Blind';
 
 type ItemsLista = {
     id: number;
