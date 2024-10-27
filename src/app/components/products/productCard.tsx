@@ -13,9 +13,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ title, description, price, imageUrl }) => {
     return (
-        <Card className="border rounded-lg flex flex-col items-center text-center space-y-2 w-[191px] h-[309]">
-            {/* <Typography variant="h6" className={`font-bold mt-[13px] text-[${themePalette.primary}]`} style={{ text: themePalette.primary }}> */}
-            <Typography variant="h6" className={`font-bold mt-[13px]`} style={{ color: themePalette.primary }}>
+        <Card className="border border-primary rounded-lg flex flex-col items-center text-center space-y-2 w-[191px] h-[309]">
+            <Typography variant="h6" className="font-bold mt-[13px] text-primary">
                 {title}
             </Typography>
             <CardContent 
@@ -28,16 +27,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ title, description, price, im
                 <div className="relative">
                     <Image src={imageUrl} alt={title} />
                 </div>
-                {/* <Typography variant="body2" className={`mt-[8px] text-[${themePalette.primary}]`}> */}
-                <Typography variant="body2" className={`mt-[8px]`} style={{ color: themePalette.primary }}>
+                <Typography variant="body2" className="mt-[8px] text-primary">
                     {description}
                 </Typography>
-                {/* <Typography variant="h6" className={`text-[${themePalette.primary}] mt-[8px] font-semibold`}> */}
-                <Typography variant="h6" className={`text-[${themePalette.primary}] mt-[8px] font-semibold`} style={{ color: themePalette.primary }}>
+                <Typography variant="h6" className="text-primary mt-[8px] font-semibold">
                     ${price.toFixed(2)}
                 </Typography>
-                {/* <Button variant="contained" className={`mt-[8px] normal-case rounded-[20px] bg-[${themePalette.secondary}]`}> */}
-                <Button variant="contained" className={`mt-[8px] normal-case rounded-[20px]`} style={{ background: themePalette.secondary }}>
+                <Button variant="contained" className="mt-[8px] normal-case rounded-[20px] bg-secondary">
                     Agregar al carrito
                 </Button>
             </CardContent>

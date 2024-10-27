@@ -1,5 +1,5 @@
 import { TopMenu } from "@/components/ui/top-menu/TopMenu";
-import { ProductCarousel, ProductOffers } from "../components";
+import { ProductsCarousel, ProductOffers } from "../components";
 import { productImage } from "@/assets/images";
 import { ZoneAndShipping } from "../components/landing/zoneAndShipping";
 import TipoMascota from "../components/landing/tipoMascota";
@@ -101,7 +101,8 @@ export default function Home() {
     <div>
       <TopMenu />
       <ZoneAndShipping />
-      <ProductCarousel products={products} />
+      {/* <ProductCarousel products={products} /> */}
+      <ProductsCarousel products={products} />
       <TipoMascota />
       <ProductOffers ofertsList={productsOffers} />
       <PieDePagina />

@@ -67,7 +67,7 @@ export default function Login() {
                 color: themePalette.primary,
               }}
             >
-              Inicio de sesión
+              Crear cuenta
             </Typography>
             <RegisterForm />
           </Box>
