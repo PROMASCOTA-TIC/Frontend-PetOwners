@@ -18,15 +18,18 @@ type Inputs = {
     passwordConfirm: string;
 };
 
-export const RegisterForm = () => {
+interface RegisterFormProps {
+    preferences: boolean;
+    setPreferences: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const RegisterForm: React.FC<RegisterFormProps> = ({ preferences, setPreferences }) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm<Inputs>({
         resolver: zodResolver(registerSchema),
         mode: 'onChange', // Cambia el modo para validar en tiempo real
     });
 
     const [showPassword, setShowPassword] = useState(false);
-
-    const [preferences, setPreferences] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 

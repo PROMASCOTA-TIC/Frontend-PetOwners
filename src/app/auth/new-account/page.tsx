@@ -1,20 +1,20 @@
-import { themePalette } from "@/config/theme.config";
+"use client";
+import { useState } from "react";
 import { Box, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
-// import LogoVerde from "@/assets/images/logoVerde.png";
-// import Imagen from "@/assets/images/Foto.png";
 import { icon, fondoDuenos } from "@/assets/images";
 import { RegisterForm } from "./registerForm";
+import { RegistroPreferencias } from "./registroPreferencias";
 
 export default function Login() {
+  const [preferences, setPreferences] = useState(false);
+
   return (
     <div>
       <Grid2 container
         sx={{
           textAlign: 'center',
           height: '100vh',
-          // fontFamily: theme.typography.fontFamily,
-          fontFamily: themePalette.FONT_GLOBAL,
         }} >
         <Grid2 size={{ xs: 12, md: 7 }}
           sx={{
@@ -32,11 +32,9 @@ export default function Login() {
               marginTop: { xs: '10px', md: '21px' }
             }} >
             <Typography
-              sx={{
-                fontSize: { xs: '32px', md: '42px' },
-                // color: theme.palette.primary.main,
-                color: themePalette.primary,
-              }}>
+              sx={{ fontSize: { xs: '32px', md: '42px' } }}
+              className="text-primary"
+            >
               PROMASCOTA
             </Typography>
             <Image src={icon}
@@ -63,13 +61,15 @@ export default function Login() {
                 fontSize: { xs: '28px', md: '36px' },
                 fontWeight: 'bold',
                 margin: { xs: '20px 0px', md: '34px 0px' },
-                // color: theme.palette.primary.main,
-                color: themePalette.primary,
               }}
+              className="text-primary"
             >
               Crear cuenta
             </Typography>
-            <RegisterForm />
+            {preferences ?
+              <RegistroPreferencias />
+            : 
+              <RegisterForm preferences={ preferences } setPreferences={ setPreferences } /> }
           </Box>
         </Grid2>
         <Grid2 size={{ xs: 0, md: 5 }}

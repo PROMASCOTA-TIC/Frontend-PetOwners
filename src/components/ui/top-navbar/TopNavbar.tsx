@@ -6,7 +6,6 @@ import { Box, AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Tooltip, 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Container from '@mui/material/Container';
-import { themePalette } from '@/config/theme.config';
 import Image from 'next/image';
 import { iconWhite } from '@/assets/images';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -29,7 +28,10 @@ const NavbarEm: React.FC = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ width: '100%', height: { xs: '60px', md: '80px', background: themePalette.primary } }}>
+        <AppBar position="static" 
+            sx={{ width: '100%', height: { xs: '60px', md: '80px' } }}
+            className='bg-primary'
+        >
             <Container maxWidth="xl" >
                 <Toolbar disableGutters sx={{ height: '100%', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                     {/* Logo y título */}
@@ -61,7 +63,7 @@ const NavbarEm: React.FC = () => {
                             inputProps={{
                                 'aria-label': 'weight',
                             }}
-                            className={`text-[${themePalette.primary}] bg-white`}
+                            className="text-primary bg-white"
                             placeholder='Buscar'
                             sx={{
                                 '& .MuiOutlinedInput-notchedOutline': {

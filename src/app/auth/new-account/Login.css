@@ -5,10 +5,10 @@
     font-family: 'Work Sans', sans-serif;
 }
 
-span {
+/* span {
     font-size: 42px;
     text-align: center;
-}
+} */
 
 .container {
     display: flex;

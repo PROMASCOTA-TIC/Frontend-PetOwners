@@ -2,7 +2,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Button, Card, CardContent, Typography } from '@mui/material';
-import { themePalette } from '@/config/theme.config';
 
 interface ProductCardProps {
     title: string;
