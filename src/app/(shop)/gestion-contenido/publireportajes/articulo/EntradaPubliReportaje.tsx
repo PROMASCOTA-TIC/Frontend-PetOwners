@@ -3,7 +3,6 @@ import React from 'react'
 
 import '/src/assets/styles/gestionContenido/general.css';
 import '/src/assets/styles/gestionContenido/estilos.css';
-import { Download } from '@mui/icons-material';
 import BotonAzul from '@/components/gestionContenido/botones/BotonAzul';
 import Link from 'next/link';
 
@@ -29,7 +28,7 @@ const EntradaPubliReportaje = () => {
                 className='flex-column'
                 sx={{
                     alignItems: 'center',
-                    gap: '21px'
+                    gap: '34px'
                 }}
             >
                 <p className='n-regular'><b>De venta en: </b>Hola</p>
@@ -38,8 +37,7 @@ const EntradaPubliReportaje = () => {
                     link="https://example.com"
                 />
                 <span className="n-semiBold">
-                    Para más información sobre cómo elegir el juguete perfecto para tu mascota,
-                    visita nuestra sección de{" "}
+                    Para descubrir recursos útiles y consejos sobre el bienestar de tu mascota, explora nuestra sección de {" "}
                     <Link className="n-semiBold txtcolor-secondary" href={""}>
                         Enlaces de Interés.
                     </Link>

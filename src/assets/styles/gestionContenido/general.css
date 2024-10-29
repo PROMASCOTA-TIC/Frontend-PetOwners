@@ -166,7 +166,6 @@ input::placeholder {
     color: #A9A9A9; /* Cambia el color del placeholder */
     font-size: var(--font-size-minima); /* Establece el tamaño del placeholder */
     font-weight: 400; /* Peso de la fuente */
-    text-align: center; /* Alineación del texto del placeholder */
 }
 
 /* Media Queries para pantallas xs */

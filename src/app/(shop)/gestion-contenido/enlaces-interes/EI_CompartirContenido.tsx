@@ -25,7 +25,7 @@ const EI_CompartirContenido = () => {
 
             <BotonAzul
                 name="Compartir"
-                link="https://example.com"
+                link="/gestion-contenido/enlaces-interes/formulario"
             />
         </Box>
     );
