@@ -1,6 +1,12 @@
 import { FiltroListaBusqueda, ListaItems } from "@/app/components";
 
 export default function () {
+    // const router = useRouter();
+
+    // const handleClickProduct = () => {
+    //     router.push('items-detail');
+    // }
+
     return (
         <div>
             <div className="mx-e55 mt-e34">
