@@ -46,6 +46,13 @@ const config: Config = {
         b15: "15px",
         b20: "20px",
       },
+      fontSize: {
+        "fs36": "36px",
+        "fs24": "24px",
+        "fs18": "18px",
+        "fs14": "14px",
+        "fs12": "12px",
+      },
     },
   },
   plugins: [],

@@ -12,7 +12,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 
 const settings = [
-    { path: '/settings', text: 'Configurar cuenta' },
+    { path: '/account-settings', text: 'Configurar cuenta' },
     { path: '/logout', text: 'Cerrar sesión' },
 ];
 
@@ -87,7 +87,7 @@ const NavbarEm: React.FC = () => {
                     {/* Menú de cuenta visible en todas las pantallas */}
                     <Grid2 size={{ xs: 2, sm: 2, md: 2, lg: 3 }} sx={{ width: "100%" }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "end", mr: "13px" }}>
-                            <Tooltip title="Open settings">
+                            <Tooltip title="Gestionar la cuenta">
                                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', alignItems: 'center' }}>
                                         <AccountCircleIcon sx={{ color: 'white', fontSize: { xs: 28, md: 40 } }} />

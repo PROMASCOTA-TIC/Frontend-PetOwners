@@ -47,7 +47,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ preferences, setPref
     };
 
     return (
-        <FormControl className="form-group" component="form" onSubmit={handleSubmit(onSubmit)}>
+        // <FormControl className="form-group" component="form" onSubmit={handleSubmit(onSubmit)}>
+        <Box className="form-group" component="form" onSubmit={handleSubmit(onSubmit)}>
             <FormLabel htmlFor="name" style={{ margin: "0px 0px 10px 0px" }}>Nombre</FormLabel>
             <TextField
                 id="name"
@@ -114,6 +115,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ preferences, setPref
                     Continuar
                 </Button>
             </Box>
-        </FormControl>
+        </Box>
     );
 }

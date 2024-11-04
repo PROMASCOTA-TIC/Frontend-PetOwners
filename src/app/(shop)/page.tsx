@@ -96,10 +96,17 @@ const productsOffers= [
   // Agrega más productos según sea necesario
 ];
 
+const items = [
+  { name: 'Inicio', url: '/cart' },
+  { name: 'Enlaces de Interés', url: '/enlaces' },
+  { name: 'Publi-Reportajes', url: '/publi-reportajes' },
+  { name: 'Preguntas Frecuentes', url: '/preguntas-frecuentes' }
+]
+
 export default function Home() {
   return (
     <div>
-      <TopMenu />
+      <TopMenu listaItems={items} />
       <ZoneAndShipping />
       {/* <ProductCarousel products={products} /> */}
       <ProductsCarousel products={products} />
