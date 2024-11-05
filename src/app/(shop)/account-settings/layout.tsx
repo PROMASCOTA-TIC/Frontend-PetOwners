@@ -3,7 +3,7 @@ import { TopMenu } from "@/components/ui/top-menu/TopMenu";
 const items = [
     { name: 'Información general', url: '/general-info' },
     { name: 'Mis mascotas', url: '/my-pets' },
-    { name: 'Informaciòn de entregas', url: '/shipping-info' },
+    { name: 'Información de entregas', url: '/account-settings/informacionEntrega' },
     { name: 'Historial de compras', url: '/purchase-history' },
     { name: 'Ir a comprar', url: '/' },
 ]
