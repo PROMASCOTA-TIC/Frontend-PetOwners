@@ -1,4 +1,4 @@
-/**************** BACKGROUND COLOR ***********************/
+                                    /**************** BACKGROUND COLOR ***********************/
 .bg-primary {
     background-color: #004040;
 }
@@ -16,36 +16,36 @@
 }
 
 /* .bg-primarydos{
-background-color: #00404099;
+    background-color: #00404099;
 }
 
 .bg-secondary40 {
-background-color: #00AA2866;
+    background-color: #00AA2866;
 }
 
 .bg-quarternary {
-background-color: #002828;
+    background-color: #002828;
 }
 
 .bg-quarternary40 {
-background-color: #00282866;
+    background-color: #00282866;
 }
 
 .bg-quintenary {
-background-color: #006060;
+    background-color: #006060;
 }
 
 .bg-quinary50 {
-background-color: #00606080;
+    background-color: #00606080;
 }
 
 .bg-black10 {
-background-color: #0000001A;
+    background-color: #0000001A;
 } */
 
 /***********************************************************************************************************************/
-/**************** Text Color ***********************/
-.txtcolor-primary {
+                                        /**************** Text Color ***********************/
+.txtcolor-primary{
     color: #004040;
 }
 
@@ -66,7 +66,7 @@ background-color: #0000001A;
 }
 
 /***********************************************************************************************************************/
-/**************** FONTS ***********************/
+                                        /**************** FONTS ***********************/
 :root {
     --font-size-h1: 36px;
     --font-size-h2: 24px;
@@ -163,41 +163,31 @@ background-color: #0000001A;
 
 /* Estilos del placeholder */
 input::placeholder {
-    color: #A9A9A9;
-    /* Cambia el color del placeholder */
-    font-size: var(--font-size-minima);
-    /* Establece el tamaño del placeholder */
-    font-weight: 400;
-    /* Peso de la fuente */
-    text-align: center;
-    /* Alineación del texto del placeholder */
+    color: #A9A9A9; /* Cambia el color del placeholder */
+    font-size: var(--font-size-minima); /* Establece el tamaño del placeholder */
+    font-weight: 400; /* Peso de la fuente */
+    text-align: center; /* Alineación del texto del placeholder */
 }
 
 /* Media Queries para pantallas xs */
 @media (max-width: 600px) {
     :root {
-        --font-size-h1: 24px;
-        /* Ajusta el tamaño según sea necesario */
-        --font-size-h2: 20px;
-        /* Ajusta el tamaño según sea necesario */
-        --font-size-n: 16px;
-        /* Ajusta el tamaño según sea necesario */
-        --font-size-minima: 12px;
-        /* Ajusta el tamaño según sea necesario */
-        --font-size-miniatura: 10px;
-        /* Ajusta el tamaño según sea necesario */
+        --font-size-h1: 24px; /* Ajusta el tamaño según sea necesario */
+        --font-size-h2: 20px; /* Ajusta el tamaño según sea necesario */
+        --font-size-n: 16px; /* Ajusta el tamaño según sea necesario */
+        --font-size-minima: 12px; /* Ajusta el tamaño según sea necesario */
+        --font-size-miniatura: 10px; /* Ajusta el tamaño según sea necesario */
     }
 
     /* Estilos del placeholder para pantallas xs */
     input::placeholder {
-        font-size: var(--font-size-minima);
-        /* Cambia el tamaño según la pantalla */
+        font-size: var(--font-size-minima); /* Cambia el tamaño según la pantalla */
     }
 }
 
 
 /***********************************************************************************************************************/
-/**************** Padding ***********************/
+                                        /**************** Padding ***********************/
 .p-5 {
     padding: 5px;
 }
@@ -227,7 +217,7 @@ input::placeholder {
 }
 
 /***********************************************************************************************************************/
-/**************** Align ***********************/
+                                        /**************** Align ***********************/
 .txt-center {
     text-align: center;
 }
@@ -241,7 +231,7 @@ input::placeholder {
 }
 
 /***********************************************************************************************************************/
-/**************** Flex ***********************/
+                                        /**************** Flex ***********************/
 .flex-center {
     display: flex;
     justify-content: center;
