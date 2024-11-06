@@ -2,49 +2,29 @@
 
 import { useState } from "react";
 import { Resumen } from "@/app/components/cart/Resumen";
-import { ArrowBack } from "@mui/icons-material";
-import { Box, Button, Grid2, IconButton, Step, Stepper } from "@mui/material";
+import { ArrowBack, } from "@mui/icons-material";
+import { Box, Grid2, IconButton, Step, Stepper } from "@mui/material";
+import { Pago } from "@/app/components/cart/Pago";
+
 
 const steps = ["Resumen", "Pago"]
 
 export default function () {
     const [activeStep, setActiveStep] = useState(0);
 
-
-    const handlePay = async () => {
-        const parametros = {
-            amount: 840,
-            amountWithoutTax: 840,
-            clientTransactionId: "Pago-test-008",
-            responseUrl: "http://localhost:3000/pay/response",
-            cancellationUrl: "http://localhost:3000/pay/response",
-        };
-
-        try {
-            const response = await fetch("https://pay.payphonetodoesposible.com/api/button/Prepare", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer PAYPHONE_TOKEN",
-                },
-                body: JSON.stringify(parametros),
-            });
-
-            const data = await response.json();
-            console.log(data);
-            window.location.href = data.payWithCard
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    };
+    const handleReturnStep = () => {
+        setActiveStep(activeStep - 1)
+    }
 
     return (
         <Grid2 container columnSpacing={3} rowSpacing={2}>
-            <Grid2 size={12}
-                className="flex mt-e13 justify-center"
-            >
+            <Grid2 size={12} className="flex mt-e13 justify-center">
                 {activeStep === 1 && (
-                    <IconButton>
+                    <IconButton onClick={handleReturnStep} className="absolute"
+                        sx={{
+                            left: {xs: "21px", md:"55px"},
+                        }}
+                    >
                         <ArrowBack />
                     </IconButton>
                 )}
@@ -64,15 +44,11 @@ export default function () {
                 </Stepper>
             </Grid2>
             {activeStep === 0 && (
-                    <Resumen setActiveStep={setActiveStep} />
+                <Resumen setActiveStep={setActiveStep} />
             )}
-            <Grid2 size={12}>
-
-            </Grid2>
-            <Button variant="contained" color="primary" onClick={handlePay} >
-                Pagar
-            </Button>
-
+            {activeStep === 1 && (
+                <Pago />
+            )}
         </Grid2>
     );
 }
