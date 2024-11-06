@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, IconButton, Link } from '@mui/material';
 import React from 'react'
 import { Facebook, Instagram, X } from '@mui/icons-material';
