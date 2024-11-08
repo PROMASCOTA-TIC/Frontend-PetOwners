@@ -53,10 +53,8 @@ const PR_Categorias = () => {
 
     return (
         <div>
-            <TopMenu />
             <PR_Filtro />
             <ArticulosConFoto articulos={articulos} />
-            <PieDePagina />
         </div>
     );
 };

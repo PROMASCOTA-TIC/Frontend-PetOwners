@@ -54,7 +54,6 @@ const PF_Categorias = () => {
             <h1 className='h1-bold txtcolor-primary' style={{ padding: '21px 0px 0px 55px' }}>Categoria</h1>
 
             <ArticulosSinFoto articulos={articulos} />
-            <PieDePagina />
         </div>
     );
 };

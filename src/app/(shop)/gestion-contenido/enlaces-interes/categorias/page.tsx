@@ -51,13 +51,10 @@ const EI_Categorias = () => {
 
     return (
         <div>
-            <TopMenu />
-
             {/* <h1 className='h1-bold colortext-primary' style={{ padding: '34px 0px 0px 55px' }}>{categoria}</h1> */}
             <h1 className='h1-bold txtcolor-primary' style={{ padding: '21px 0px 0px 55px' }}>Categoria</h1>
 
             <ArticulosConFoto articulos={articulos} />
-            <PieDePagina />
         </div>
     );
 };
