@@ -149,44 +149,6 @@ const Form_EnviarEnlace: React.FC = () => {
               </Grid2>
             </Grid2>
 
-            {/* Subcategoria */}
-            <Grid2 size={{ xs: 12, sm: 5, md: 4 }}>
-              <h2 className='h2-bold txtcolor-primary'>Subcategoría</h2>
-            </Grid2>
-
-            {/* Categoria: Select */}
-            <Grid2 size={{ xs: 12, sm: 7, md: 8 }}>
-              <Grid2 size={12}>
-                <Select
-                  defaultValue=""
-                  displayEmpty
-                  className='minima-regular'
-                  {...register('subcategoria')}
-                  error={!!errors.categoria}
-                  sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '15px',
-                    minWidth: '100%',
-                  }}
-                >
-                  <MenuItem value="" disabled>
-                    <span style={{ color: '#A9A9A9', fontStyle: 'normal' }}>Seleccionar</span>
-                  </MenuItem>
-                  <MenuItem value="categoria1">Subcategoría 1</MenuItem>
-                  <MenuItem value="categoria2">Subcategoría 2</MenuItem>
-                  <MenuItem value="categoria3">Subcategoría 3</MenuItem>
-                </Select>
-              </Grid2>
-
-              <Grid2 size={12}>
-                {errors.subcategoria && (
-                  <p className="text-red-500" style={{ margin: '4px' }}>
-                    {errors.subcategoria.message}
-                  </p>
-                )}
-              </Grid2>
-            </Grid2>
-
             {/* SECCION DE DETALLES DE CONTENIDO */}
             <Grid2 size={12}>
               <h2 className='h2-bold txtcolor-primary txt-center'>Detalles del contenido</h2>
