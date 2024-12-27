@@ -7,7 +7,7 @@ export const Tarjeta = () => {
     const parametros = {
       amount: 840,
       amountWithoutTax: 840,
-      clientTransactionId: "Pago-test-008",
+      clientTransactionId: "Pago-test-009",
       responseUrl: "http://localhost:3000/pay/response",
       cancellationUrl: "http://localhost:3000/pay/response",
     };
@@ -17,7 +17,8 @@ export const Tarjeta = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer PAYPHONE_TOKEN",
+          // Authorization: "Bearer PAYPHONE_TOKEN",
+          Authorization: "Bearer H4SGNk5GKAT9rgLaNuBIHJSvzG1FtJDzTQJ3gtGQ5D7qj2Iwe7RGmIN2WV2uL-8-JFslftvP2e7ZVKYEXHQXvTdiSFONzir_RQyKi1p6x0cKU-vtLl3ro01_ND6Smn-0x9RIPUFHlMAJ59iAP-Q53f9l5c4iijGMwgmVMcx1bAUL-kLGn-OVLaaRASzlEUWU5knN6uz1F1B3UYe_TaGq5zqFJpr5Q9kd8tJRntDZ24SHhCMNWdxKQRT2KfG7rJtDeqRVHSbF0m-hisW7aUGZXH-RQHYYfe8H1qPxVl-Ft1gkYbvw41YsCd7QmrylocaLySYj0A",
         },
         body: JSON.stringify(parametros),
       });

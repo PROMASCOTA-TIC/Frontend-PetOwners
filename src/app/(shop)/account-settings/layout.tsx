@@ -2,9 +2,9 @@ import { TopMenu } from "@/components/ui/top-menu/TopMenu";
 
 const items = [
     { name: 'Información general', url: '/general-info' },
-    { name: 'Mis mascotas', url: '/my-pets' },
+    { name: 'Mis mascotas', url: '/account-settings/misMascotas' },
     { name: 'Información de entregas', url: '/account-settings/informacionEntrega' },
-    { name: 'Historial de compras', url: '/purchase-history' },
+    { name: 'Historial de compras', url: '/account-settings/historialCompras' },
     { name: 'Ir a comprar', url: '/' },
 ]
 

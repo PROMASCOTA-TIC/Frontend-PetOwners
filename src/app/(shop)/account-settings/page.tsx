@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Grid2, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { FormInfoGeneral } from './informacionGeneral/formInfoGeneral';
 import BlindIcon from '@mui/icons-material/Blind';
 import { ListaPreferencias } from '@/app/components';
@@ -85,7 +85,7 @@ const preferenciasMascotas = [
 ];
 
 export default function ConfiguracionCuenta() {
-    const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm<Inputs>({
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(infoGeneralSchema),
         mode: 'onChange', // Cambia el modo para validar en tiempo real
     });

@@ -40,7 +40,7 @@ const NavbarEm: React.FC = () => {
                                 variant="h6"
                                 noWrap
                                 component="a"
-                                href="#"
+                                href="/"
                                 sx={{
                                     mr: 2,
                                     fontFamily: 'Work Sans, sans-serif',
@@ -133,7 +133,7 @@ const NavbarEm: React.FC = () => {
                             <Divider orientation='vertical' flexItem className='mx-5 bg-white' />
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', alignItems: 'center' }}> */}
-                                <IconButton sx={{ p: 0, display: 'flex', alignItems: 'center' }}>
+                                <IconButton sx={{ p: 0, display: 'flex', alignItems: 'center' }} href='/cart'>
                                     <ShoppingCartIcon sx={{ color: 'white', fontSize: { xs: 28, md: 40 } }} />
                                 </IconButton>
                             </Box>

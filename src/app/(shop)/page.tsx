@@ -108,7 +108,9 @@ export default function Home() {
     <div>
       <TopMenu listaItems={items} />
       <ZoneAndShipping />
-      {/* <ProductCarousel products={products} /> */}
+      <h2 className="text-primary font-semibold text-fs24 sm:text-fs24 md:text-fs36 lg:text-fs36 ms-e63 mb-e21">Nuevos productos</h2>
+      <ProductsCarousel products={products} />
+      <h2 className="text-primary font-semibold text-fs24 sm:text-fs24 md:text-fs36 lg:text-fs36 ms-e63 mb-e21 mt-e34">Top de ventas</h2>
       <ProductsCarousel products={products} />
       <TipoMascota />
       <ProductOffers ofertsList={productsOffers} />
