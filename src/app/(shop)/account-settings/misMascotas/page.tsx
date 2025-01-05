@@ -16,6 +16,16 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { petFormSchema } from "@/validations/petFormSchema";
 import { SnackbarNotifications } from "@/app/components";
+import {
+    getStorage,
+    ref,
+    uploadBytesResumable,
+    getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import app from "@/config/firebase";
+
+const storage = getStorage(app);
 
 type PetFormValues = {
     name: string;
@@ -27,6 +37,27 @@ type PetFormValues = {
     petPreferences: string;
 }
 
+interface PetData {
+    id: string;
+    name: string;
+    photoUrl: string;
+    // ...
+}
+
+enum NotificationType {
+    Info = "info",
+    Success = "success",
+    Error = "error",
+    Warning = "warning",
+}
+
+const petDatTest: PetData = {
+    id: "UUID1",
+    name: "Mascota 1",
+    photoUrl: "https://firebasestorage.googleapis.com/v0/b/mypet-d1ea5.appspot.com/o/PetOwners%2Fpets%2Fimages479f5fcd-9b30-4b03-928f-2d27dbc9ad1f_Carta-Producto.png?alt=media&token=c2f996dc-9a76-41ae-946b-a6dfb31c7201",
+    // ...
+};
+
 export default function Mascotas() {
     const [openDialog, setOpenDialog] = useState(false);
     const [showForm, setShowForm] = useState(false);
@@ -34,6 +65,10 @@ export default function Mascotas() {
     const [avatar, setAvatar] = useState<string | undefined>(petAvatar.src);
     const [isMobile, setIsMobile] = useState(false)
     const [triggerKey, setTriggerKey] = useState(0);
+    const [petData, setPetData] = useState<PetData | null>(null);
+    const [newPetPhoto, setNewPetPhoto] = useState("");
+    const [notificationType, setNotificationType] = useState<NotificationType>(NotificationType.Info);
+    const [notificationMessage, setNotificationMessage] = useState("");
     const [pets, setPets] = useState([
         {
             id: "UUID1",
@@ -62,7 +97,6 @@ export default function Mascotas() {
             name: '',
             specie: '',
             breed: '',
-            // birthday: dayjs(),
             birthday: null,
             gender: '',
             weight: '',
@@ -82,6 +116,17 @@ export default function Mascotas() {
         handleResize(); // Ejecutar en la primera carga
         return () => window.removeEventListener("resize", handleResize); // Limpiar
     })
+
+    useEffect(() => {
+        if (petData) {
+            // setValue('name', petData.name);
+            // setValue('specie', petData.specie);
+            // setValue('breed', petData.breed);
+            // setValue('birthday', petData.birthday);
+            setAvatar(petData.photoUrl);
+        }
+    }
+    , [petData]);
 
     function handleAddPet() {
         const newPet = {
@@ -113,6 +158,8 @@ export default function Mascotas() {
         const file = event.target.files?.[0];
         if (file) {
             if (!isImageFile(file)) {
+                setNotificationType(NotificationType.Error);
+                setNotificationMessage("Solo se permiten archivos de imagen en formato JPEG o PNG.");
                 setTriggerKey((prevKey) => prevKey + 1);
             } else {
                 setSelectedImage(file);
@@ -120,9 +167,49 @@ export default function Mascotas() {
         }
     };
 
+    const handleUploadImage = async () => {
+        if (!selectedImage) return;
+
+        try {
+            const fileRef = ref(storage, `PetOwners/pets/images${uuidv4()}_${selectedImage.name}`);
+            const uploadTask = uploadBytesResumable(fileRef, selectedImage);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    // const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    // setUploadProgress(progress);
+                },
+                (error) => {
+                    setNotificationType(NotificationType.Error);
+                    setNotificationMessage("Error al guardar los archivos, intente de nuevo");
+                    setTriggerKey((prevKey) => prevKey + 1);
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+                    console.log("Archivo subido:", downloadURL);
+                    setNewPetPhoto(downloadURL);
+                });
+            setOpenDialog(false);
+        } catch (error) {
+            console.error("Error al subir los archivos:", error);
+
+            setNotificationType(NotificationType.Error);
+            setNotificationMessage("No se pudo guardar los archivos");
+            setTriggerKey((prevKey) => prevKey + 1);
+        }
+    };
+
     const onSubmit = (data: PetFormValues) => {
         // TODO: Enviar datos al backend
         console.log(data);
+
+        // TODO: Enviar foto de la mascota a Firebaase
+        if (selectedImage) {
+            handleUploadImage();
+        }
+
         reset();
     };
 
@@ -135,8 +222,8 @@ export default function Mascotas() {
             }
 
             <SnackbarNotifications
-                type="error"
-                message="Solo se permiten archivos de imagen en formato JPEG o PNG."
+                type={notificationType}
+                message={notificationMessage}
                 triggerKey={triggerKey}
             />
 
