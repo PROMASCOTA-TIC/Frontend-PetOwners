@@ -3,6 +3,7 @@ import fondoDuenos from './fondoRegDuenos.png';
 import productImage from './productImage.png';
 import iconWhite from './iconWhite.png';
 import userImg from './user-img.png';
+import petAvatar from './pet-avatar.png';
 
 export { 
     icon, 
@@ -10,4 +11,5 @@ export {
     productImage,
     iconWhite,
     userImg,
+    petAvatar,
 };

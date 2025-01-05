@@ -15,7 +15,7 @@ export const RegistroDireccion: React.FC<RegistroDireccionProps> = ({ open, setO
     const [zona, setZona] = useState<string>("");
     // const [center, setCenter] = useState({ lat: -0.1807, lng: -78.4678 });
 
-    const API_KEY = 'AIzaSyDjhLU-SnEhN6VVhtCaZ68eToKmF1S5bAY'; // Reemplaza con tu API Key
+    const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
     // Configuración del mapa
     const mapContainerStyle = { width: '100%', height: '500px' };
