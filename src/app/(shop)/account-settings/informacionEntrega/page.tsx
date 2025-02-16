@@ -7,9 +7,17 @@ import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import { TarjetaDireccion } from './tarjetaDireccion';
 import { RegistroDireccion } from './registroDireccion';
 
+interface AddressForm {
+    zona: string;
+    nombre: string;
+    direccion: string;
+}
+
 export default function InformacionEntrega() {
     const [zona, setZona] = useState<string>("");
     const [open, setOpen] = useState(false);
+    const [listaDirecciones, setListaDirecciones] = useState<AddressForm[]>([]);
+    const [contactNumber, setContactNumber] = useState('');
 
     const handleZonaChange = (event: SelectChangeEvent<string>) => {
         setZona(event.target.value);
@@ -41,6 +49,8 @@ export default function InformacionEntrega() {
                                     id="numeroContacto"
                                     placeholder="0999999999"
                                     fullWidth
+                                    value={contactNumber}
+                                    onChange={(e) => setContactNumber(e.target.value)}
                                 />
                             </Grid2>
                             <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6 }}
@@ -69,7 +79,7 @@ export default function InformacionEntrega() {
                         {
                             open ?
                             (
-                                <RegistroDireccion open={open} setOpen={setOpen} />
+                                <RegistroDireccion open={open} setOpen={setOpen} listaDirecciones={listaDirecciones} setListaDirecciones={setListaDirecciones} />
                             ) :
                             (
                             <>
@@ -125,7 +135,7 @@ export default function InformacionEntrega() {
                                     </Grid2>
                                 </div>
                                 <div className='mt-e21'>
-                                    <TarjetaDireccion />
+                                    <TarjetaDireccion listaDirecciones={listaDirecciones} setListaDirecciones={setListaDirecciones} />
                                 </div>
                             </>
                             )

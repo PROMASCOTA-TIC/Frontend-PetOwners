@@ -1,15 +1,19 @@
+
 import { Box, Button, Typography } from "@mui/material"
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { v4 as uuidv4 } from "uuid";
 
 export const Tarjeta = () => {
 
   const handlePay = async () => {
     const parametros = {
-      amount: 840,
-      amountWithoutTax: 840,
-      clientTransactionId: "Pago-test-009",
-      responseUrl: "http://localhost:3000/pay/response",
-      cancellationUrl: "http://localhost:3000/pay/response",
+      amount: 1500,
+      amountWithoutTax: 1500,
+      clientTransactionId: uuidv4(),
+      // responseUrl: "http://localhost:3000/pay/response",
+      // cancellationUrl: "http://localhost:3000/pay/response",
+      responseUrl: "http://localhost:3000/",
+      cancellationUrl: "http://localhost:3000/",
     };
 
     try {

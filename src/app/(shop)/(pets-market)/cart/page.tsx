@@ -5,7 +5,7 @@ import { Resumen } from "@/app/components/cart/Resumen";
 import { ArrowBack, } from "@mui/icons-material";
 import { Box, Grid2, IconButton, Step, Stepper } from "@mui/material";
 import { Pago } from "@/app/components/cart/Pago";
-
+import { useShoppingCartStore } from "@/store/shoppingCartStore";
 
 const steps = ["Resumen", "Pago"]
 
@@ -16,8 +16,11 @@ export default function () {
         setActiveStep(activeStep - 1)
     }
 
+    const type = useShoppingCartStore((state) => state.buyType);
+
     return (
         <Grid2 container columnSpacing={3} rowSpacing={2}>
+            <h4>{type}</h4>
             <Grid2 size={12} className="flex mt-e13 justify-center">
                 {activeStep === 1 && (
                     <IconButton onClick={handleReturnStep} className="absolute"

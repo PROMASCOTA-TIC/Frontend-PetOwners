@@ -24,6 +24,8 @@ import {
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import app from "@/config/firebase";
+import { StaticImageData } from 'next/image';
+import { date } from "joi";
 
 const storage = getStorage(app);
 
@@ -72,15 +74,10 @@ export default function Mascotas() {
     const [pets, setPets] = useState([
         {
             id: "UUID1",
-            name: "Mascota 1",
-            lastVaccine: "dd/mm/yyyy",
-            birthday: "dd/mm/yyyy",
-        },
-        {
-            id: "UUID2",
-            name: "Mascota 2",
-            lastVaccine: "dd/mm/yyyy",
-            birthday: "dd/mm/yyyy",
+            name: "Kira",
+            lastVaccine: "08/10/2024",
+            birthday: "09/04/2016",
+            photo: petAvatar.src,
         },
     ]);
     const { 
@@ -129,13 +126,13 @@ export default function Mascotas() {
     , [petData]);
 
     function handleAddPet() {
-        const newPet = {
-            id: `UUID ${pets.length + 1}`,
-            name: "",
-            lastVaccine: "",
-            birthday: "",
-        };
-        setPets([...pets, newPet]);
+        // const newPet = {
+        //     id: `UUID ${pets.length + 1}`,
+        //     name: "",
+        //     lastVaccine: "",
+        //     birthday: "",
+        // };
+        // setPets([...pets, newPet]);
 
         setShowForm(true);
     }
@@ -205,10 +202,21 @@ export default function Mascotas() {
         // TODO: Enviar datos al backend
         console.log(data);
 
+        const newPet = {
+            id: `UUID ${pets.length + 1}`,
+            name: data.name,
+            lastVaccine: dayjs().format("DD/MM/YYYY"),
+            birthday: data.birthday?.format("DD/MM/YYYY") || "",
+            photo: selectedImage ? URL.createObjectURL(selectedImage) : "",
+        };
+        setPets([...pets, newPet]);
+
+        setShowForm(false);
+
         // TODO: Enviar foto de la mascota a Firebaase
-        if (selectedImage) {
-            handleUploadImage();
-        }
+        // if (selectedImage) {
+        //     handleUploadImage();
+        // }
 
         reset();
     };

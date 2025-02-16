@@ -1,22 +1,27 @@
 import { TopMenu } from "@/components/ui/top-menu/TopMenu";
 
-const items = [
-    { name: 'Información general', url: '/general-info' },
-    { name: 'Mis mascotas', url: '/account-settings/misMascotas' },
-    { name: 'Información de entregas', url: '/account-settings/informacionEntrega' },
-    { name: 'Historial de compras', url: '/account-settings/historialCompras' },
-    { name: 'Ir a comprar', url: '/' },
-]
+const configNavMenu = {
+    type: 'market',
+    options: [
+        { name: 'Información general', url: '/account-settings' },
+        { name: 'Mis mascotas', url: '/account-settings/misMascotas' },
+        { name: 'Información de entregas', url: '/account-settings/informacionEntrega' },
+        { name: 'Historial de compras', url: '/account-settings/historialCompras' },
+        { name: 'Ir a comprar', url: '/' },
+    ]
+}
 
-export default function ConfiguracionCuentaLayout({
+export default function Layout({
     children
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <main>
-            <TopMenu listaItems={items} />
-            {children}
-        </main>
+        <>
+            <TopMenu navigationMenu={configNavMenu} />
+            <main>
+                {children}
+            </main>
+        </>
     );
 }

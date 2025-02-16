@@ -88,6 +88,14 @@ export default function ConfiguracionCuenta() {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(infoGeneralSchema),
         mode: 'onChange', // Cambia el modo para validar en tiempo real
+        defaultValues: {
+            name: 'Guissella Ramon',
+            email: 'guiss@gmail.com',
+            password: '',
+            newPassword: '',
+            preferenciasDueño: ['Paseos', 'Adopciones', 'Adiestramiento'],
+            preferenciasMascotas: ['Salud', 'Peluquería', 'Nutrición'],
+        }
     });
 
     const onSubmit = (data: Inputs) => {

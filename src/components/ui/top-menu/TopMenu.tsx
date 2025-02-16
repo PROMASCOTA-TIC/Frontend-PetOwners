@@ -9,26 +9,37 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
+import { ZoneAndShipping } from '@/app/components/landing/zoneAndShipping';
 
-interface Item {
+interface NavOption {
     name: string;
     url: string;
 }
 
-interface TopMenuProps {
-    listaItems: Item[];
+interface NavMenu {
+    type: string;
+    options: NavOption[];
 }
 
-export const TopMenu = ({ listaItems }: TopMenuProps) => {
+interface TopMenuProps {
+    navigationMenu: NavMenu;
+}
+
+export const TopMenu = ({ navigationMenu }: TopMenuProps) => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+    const [itemSelected, setItemSelected] = useState('');
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
 
+    const handleOptionSelected = (itemSelected: string) => {
+        setItemSelected(itemSelected);
+    }
+
     return (
-        <AppBar position="static" style={{ background: '#0000001a' }}>
+        <AppBar position="static" className='bg-white'>
             <Container maxWidth="xl">
                 <Toolbar disableGutters style={{ minHeight: '48px', maxHeight: '48px' }}>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} style={{ height: 'inherit' }}>
@@ -58,12 +69,12 @@ export const TopMenu = ({ listaItems }: TopMenuProps) => {
                             onClose={() => setAnchorElNav(null)}
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
-                            {listaItems.map((page) => (
+                            {navigationMenu.options.map((page) => (
                                 <MenuItem key={page.name}>
                                     <Link
                                         href={page.url}
                                         key={page.name}
-                                        style={{ color: '#004040' }}
+                                        className='text-fs14 sm:text-fs18 md:text-fs18 text-primary'
                                     >
                                         {page.name}
                                     </Link>
@@ -72,16 +83,21 @@ export const TopMenu = ({ listaItems }: TopMenuProps) => {
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }} style={{ gap: '55px', height: 'inherit' }}>
-                        {listaItems.map((page) => (
+                        {navigationMenu.options.map((page) => (
                             <Link
                                 href={page.url}
                                 key={page.name}
-                                style={{ color: '#004040' }}
+                                onClick={() => handleOptionSelected(page.name)}
+                                className={`text-fs14 sm:text-fs18 md:text-fs18 text-[#EC825B] hover:text-[#B74015] ${itemSelected === page.name ? 'text-secondary' : 'text-[#EC825B]'}`}
                             >
                                 {page.name}
                             </Link>
                         ))}
                     </Box>
+                    
+                    <div className='lg:hidden overflow-x-auto whitespace-nowrap'>
+                        <ZoneAndShipping />
+                    </div>
                 </Toolbar>
             </Container>
         </AppBar>

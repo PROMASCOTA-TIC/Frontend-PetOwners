@@ -12,6 +12,7 @@ interface RoundedPetsCardProps {
         name: string;
         lastVaccine: string;
         birthday: string;
+        photo: string;
     };
 }
 
@@ -41,10 +42,11 @@ export const RoundedPetsCard: React.FC<RoundedPetsCardProps> = ({ setShowForm, d
                             marginLeft: { xs: "13px", sm: "21px" },
                         }}
                     >
-                        <Image src={productImage} alt={"Producto"}
+                        <Image src={data.photo} alt={"Producto"}
                             style={{
                                 height: "75%",
                             }}
+                            width={100} height={100}
                         />
                     </Box>
                     <Box className="flex flex-col"

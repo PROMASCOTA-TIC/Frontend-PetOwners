@@ -6,6 +6,8 @@ import { ListaItems } from "./searchList/listaItems";
 import  { ItemDetalle } from "./products/detalle";
 import { SnackbarNotifications } from "./feedback/snackbarNotifications";
 import { FileCard } from "./pets/fileCard";
+import { ImagesCarrousel } from "./landing/imagesCarrousel";
+import ProductsCarouselSkeleton from "./feedback/skeletons/productsCarouselSkeleton";
 
 export  {
     ProductsCarousel,
@@ -16,4 +18,6 @@ export  {
     ItemDetalle,
     SnackbarNotifications,
     FileCard,
+    ImagesCarrousel,
+    ProductsCarouselSkeleton,
 }

@@ -1,14 +1,20 @@
 "use client";
 import React from "react";
 import { MenuItem, FormControl, Select, InputLabel, SelectChangeEvent } from "@mui/material";
+import { useShoppingCartStore } from "@/store/shoppingCartStore";
 
 export const ZoneAndShipping = () => {
     const [delivery, setDelivery] = React.useState<string>("");
     const [sector, setSector] = React.useState<string>("");
     const [address, setAddress] = React.useState<string>("");
+    const setBuyType = useShoppingCartStore( state => state.setBuyType );
+    const buyType = useShoppingCartStore( state => state.buyType );
 
     const handleDeliveryChange = (event: SelectChangeEvent<string>) => {
+        const value = event.target.value;
         setDelivery(event.target.value);
+        console.log(value);
+        setBuyType(value);
     };
 
     const handleSectorChange = (event: SelectChangeEvent<string>) => {
@@ -20,7 +26,7 @@ export const ZoneAndShipping = () => {
     };
 
     return (
-        <div className="overflow-x-auto whitespace-nowrap mx-e21 my-e13">
+        <div className="overflow-x-auto whitespace-nowrap mx-e21 lg:my-e13">
             <div className="inline-flex gap-3 pt-e5">
                 {/* Opciones de Entrega */}
                 <FormControl
@@ -39,8 +45,8 @@ export const ZoneAndShipping = () => {
                         onChange={handleDeliveryChange}
                         label="Opciones entrega"
                     >
-                        <MenuItem value="Entrega">Entrega a domicilio</MenuItem>
-                        <MenuItem value="Recoger">Recoger en tiendas</MenuItem>
+                        <MenuItem value="delivery">Entrega a domicilio</MenuItem>
+                        <MenuItem value="pick-up">Recoger en tiendas</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -79,6 +85,7 @@ export const ZoneAndShipping = () => {
                         borderRadius: "16px",
                         flexShrink: 0,
                     }}
+                    disabled={buyType === "pick-up" || buyType === ""}
                 >
                     <InputLabel>Dirección</InputLabel>
                     <Select

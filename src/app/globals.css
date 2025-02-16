@@ -15,8 +15,6 @@
 } */
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: "Work Sans", sans-serif;
 }
 
@@ -29,3 +27,9 @@ globlal {
     text-wrap: balance;
   }
 } */
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}

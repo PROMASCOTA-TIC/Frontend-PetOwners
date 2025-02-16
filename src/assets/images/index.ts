@@ -4,6 +4,8 @@ import productImage from './productImage.png';
 import iconWhite from './iconWhite.png';
 import userImg from './user-img.png';
 import petAvatar from './pet-avatar.png';
+import productosCarousel from './mascotas-mayoristas.webp';
+import FondoAdmin from './fondoAdmin.png';
 
 export { 
     icon, 
@@ -12,4 +14,6 @@ export {
     iconWhite,
     userImg,
     petAvatar,
+    productosCarousel,
+    FondoAdmin,
 };

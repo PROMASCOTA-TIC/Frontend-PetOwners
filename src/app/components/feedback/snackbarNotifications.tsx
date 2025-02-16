@@ -15,7 +15,7 @@ export const SnackbarNotifications: React.FC<SnackbarNotificationsProps> = ({
     type = 'info',
     message,
     autoHideDuration = 4000,
-    anchorOrigin = { vertical: 'top', horizontal: 'right' },
+    anchorOrigin = { vertical: 'bottom', horizontal: 'right' },
     triggerKey,
 }) => {
     const [open, setOpen] = useState(false);
@@ -37,13 +37,12 @@ export const SnackbarNotifications: React.FC<SnackbarNotificationsProps> = ({
             anchorOrigin={anchorOrigin}
             autoHideDuration={autoHideDuration}
             onClose={handleClose}
-            sx={{ marginTop: '10vh' }}
+            className='w-[200px]'
         >
             <Alert
                 onClose={handleClose}
                 severity={type}
                 variant="filled"
-                sx={{ width: '100%' }}
             >
                 {message}
             </Alert>

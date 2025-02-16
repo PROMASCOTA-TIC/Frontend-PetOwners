@@ -2,14 +2,14 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { Box, AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Tooltip, Divider, FormControl, OutlinedInput, Grid2 } from '@mui/material';
+import { Box, AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Tooltip, Divider, FormControl, OutlinedInput, Grid2, Badge } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Container from '@mui/material/Container';
 import Image from 'next/image';
 import { iconWhite } from '@/assets/images';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
+import { useShoppingCartStore } from '@/store/shoppingCartStore';
 
 const settings = [
     { path: '/account-settings', text: 'Configurar cuenta' },
@@ -18,6 +18,7 @@ const settings = [
 
 const NavbarEm: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const carItems = useShoppingCartStore((state) => state.getCounter());
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -102,9 +103,7 @@ const NavbarEm: React.FC = () => {
                                             fontWeight: 'regular',
                                             mt: 0.5,
                                         }}
-                                    >
-                                        Cuenta
-                                    </Typography>
+                                    />
                                 </Box>
                             </Tooltip>
                             <Menu
@@ -134,7 +133,9 @@ const NavbarEm: React.FC = () => {
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', alignItems: 'center' }}> */}
                                 <IconButton sx={{ p: 0, display: 'flex', alignItems: 'center' }} href='/cart'>
-                                    <ShoppingCartIcon sx={{ color: 'white', fontSize: { xs: 28, md: 40 } }} />
+                                    <Badge badgeContent={carItems} color="success">
+                                        <ShoppingCartIcon sx={{ color: 'white', fontSize: { xs: 28, md: 40 } }} />
+                                    </Badge>
                                 </IconButton>
                             </Box>
                         </Box>

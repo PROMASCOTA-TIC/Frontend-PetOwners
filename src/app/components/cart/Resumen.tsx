@@ -11,15 +11,15 @@ const initialProducts = [
         id: 1,
         name: "Producto 1",
         description: "Descripción del producto",
-        price: 3.5,
+        price: 10,
         daysLeft: 7,
-        quantity: 2,
+        quantity: 1,
     },
     {
         id: 2,
         name: "Producto 2",
         description: "Descripción del producto",
-        price: 5.5,
+        price: 5,
         daysLeft: 5,
         quantity: 1,
     },
@@ -285,7 +285,7 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                 fontSize: { xs: "14px", sm: "18px" },
                             }}
                         >
-                            $10.20
+                            $12.75
                         </Typography>
                     </Box>
                     <Box className="flex flex-row border-b border-quintenary"
@@ -309,7 +309,7 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                 fontSize: { xs: "14px", sm: "18px" },
                             }}
                         >
-                            $1.80
+                            $2.25
                         </Typography>
                     </Box>
                     <Box className="flex flex-row mt-e13 border-quintenary"
@@ -332,7 +332,7 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                 fontSize: { xs: "14px", sm: "18px" },
                             }}
                         >
-                            $12.00
+                            $15.00
                         </Typography>
                     </Box>
                 </Box>
