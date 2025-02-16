@@ -4,22 +4,22 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 
-const items = [
-    { name: 'Inicio', url: '/cart' },
-    { name: 'Enlaces de Interés', url: '/enlaces' },
-    { name: 'Publi-Reportajes', url: '/publi-reportajes' },
-    { name: 'Preguntas Frecuentes', url: '/preguntas-frecuentes' }
-]
+interface Item {
+    name: string;
+    url: string;
+}
 
-// export const TopMenu = ({ listaItems }) => {
-export const TopMenu = () => {
+interface TopMenuProps {
+    listaItems: Item[];
+}
+
+export const TopMenu = ({ listaItems }: TopMenuProps) => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -58,7 +58,7 @@ export const TopMenu = () => {
                             onClose={() => setAnchorElNav(null)}
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
-                            {items.map((page) => (
+                            {listaItems.map((page) => (
                                 <MenuItem key={page.name}>
                                     <Link
                                         href={page.url}
@@ -72,7 +72,7 @@ export const TopMenu = () => {
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }} style={{ gap: '55px', height: 'inherit' }}>
-                        {items.map((page) => (
+                        {listaItems.map((page) => (
                             <Link
                                 href={page.url}
                                 key={page.name}
