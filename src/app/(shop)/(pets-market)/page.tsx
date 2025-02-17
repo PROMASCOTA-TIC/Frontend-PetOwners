@@ -1,59 +1,6 @@
-import { ProductsCarousel, ProductOffers, ImagesCarrousel, ProductsCarouselSkeleton } from "../../components";
-import { productImage } from "@/assets/images";
+import { ProductsCarousel, ProductOffers, ImagesCarrousel } from "../../components";
 import { ZoneAndShipping } from "../../components/landing/zoneAndShipping";
 import TipoMascota from "../../components/landing/tipoMascota";
-
-const productsOffers = [
-  {
-    id: 1,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 2,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 3,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 4,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 5,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 6,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 7,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  {
-    id: 8,
-    price: '0.99',
-    label: 'COMIDA DE PERRO',
-    imageSrc: productImage,
-  },
-  // Agrega más productos según sea necesario
-];
 
 export default function Page() {
   return (

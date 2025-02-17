@@ -7,7 +7,7 @@ import  { ItemDetalle } from "./products/detalle";
 import { SnackbarNotifications } from "./feedback/snackbarNotifications";
 import { FileCard } from "./pets/fileCard";
 import { ImagesCarrousel } from "./landing/imagesCarrousel";
-import ProductsCarouselSkeleton from "./feedback/skeletons/productsCarouselSkeleton";
+import { NoRecordsFeedback } from "./feedback/noRecordsFeedback";
 
 export  {
     ProductsCarousel,
@@ -19,5 +19,5 @@ export  {
     SnackbarNotifications,
     FileCard,
     ImagesCarrousel,
-    ProductsCarouselSkeleton,
+    NoRecordsFeedback,
 }

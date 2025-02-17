@@ -6,12 +6,17 @@ interface ShoppingCartState {
     setBuyType: (type: string) => void;
     cart: any[];
 
-    counter: number;
-    setCounter: () => void;
-    getCounter: () => number;
-
     getTotalItems: () => number;
+    getSummaryInformation: () => {
+        subtotal: number;
+        tax: number;
+        total: number;
+        itemsInCart: number;
+    };
+
     addItemToCart: (item: any) => void;
+    updateItemQuantity: (item: any, quantity: number) => void;
+    removeItem: (item: any) => void;
 }
 
 export const useShoppingCartStore = create<ShoppingCartState>()(
@@ -24,31 +29,65 @@ export const useShoppingCartStore = create<ShoppingCartState>()(
             counter: 0,
 
             // Methods
-            setCounter: () => set((state) => ({ counter: state.counter + 1 })),
-
-            getCounter: () => get().counter,
-
             getTotalItems: () => {
                 const { cart } = get();
                 return cart.reduce(( total, item ) => total + item.quantity, 0);
             },
 
-            setBuyType: (type: string) => set({ buyType: type }),
-            addItemToCart: (product) => {
+            getSummaryInformation: () => {
                 const { cart } = get();
 
+                const subTotalItemsWithoutTax = cart.reduce(
+                    (subtotal, product) => {
+                        if (product.subcategory.includes("(sin iva)")) {
+                            return (product.quantity * product.finalPrice) + subtotal;
+                        }
+                        return subtotal;
+                    },
+                    0
+                );
+
+                const subTotalItemsWithTax = cart.reduce(
+                    (subtotal, product) => {
+                        if (!product.subcategory.includes("(sin iva)")) {
+                            return (product.quantity * product.finalPrice) + subtotal;
+                        }
+                        return subtotal;
+                    },
+                    0
+                );
+
+                const tax = parseFloat((subTotalItemsWithTax * 0.15).toFixed(2));
+                const subtotal = parseFloat((subTotalItemsWithoutTax + subTotalItemsWithTax - tax).toFixed(2));
+                const total = subTotalItemsWithoutTax + subTotalItemsWithTax;
+                const itemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+
+                return {
+                    subtotal,
+                    tax,
+                    total,
+                    itemsInCart
+                }
+            },
+
+            setBuyType: (type: string) => set({ buyType: type }),
+            addItemToCart: (newItem) => {
+                const { cart } = get();
+
+                // 1. Revisar si el item existe en el carro
                 const productInCart = cart.some(
-                    (item) => item.id === product.id
+                    (item) => item.id === newItem.id
                 );
 
                 if (!productInCart) {
-                    set({ cart: [...cart, product] })
+                    set({ cart: [...cart, newItem] })
                     return;
                 }
 
+                // 2. Si el item existe, actualizar la cantidad
                 const updatedCartItems = cart.map((item) => {
-                    if (item.id === product.id) {
-                        return { ...item, quantity: product.quantity }
+                    if (item.id === newItem.id) {
+                        return { ...item, quantity: item.quantity + newItem.quantity }
                     }
 
                     return item;
@@ -56,10 +95,31 @@ export const useShoppingCartStore = create<ShoppingCartState>()(
 
                 set({ cart: updatedCartItems })
             },
+
+            updateItemQuantity: (item, quantity) => {
+                const { cart } = get();
+
+                const updatedCartItems = cart.map((cartItem) => {
+                    if (cartItem.id === item.id) {
+                        return { ...cartItem, quantity }
+                    }
+
+                    return cartItem;
+                });
+
+                set({ cart: updatedCartItems });
+            },
+
+            removeItem: (item) => {
+                const { cart } = get();
+
+                const updatedCartItems = cart.filter((cartItem) => cartItem.id !== item.id);
+
+                set({ cart: updatedCartItems });
+            }
         }), 
         {
             name: 'shopping-cart',
-            skipHydration: true,
         }
     )
 );

@@ -4,7 +4,7 @@ import { IconButton } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 type ImageCarouselProps = {
-    images: StaticImageData[];
+    images: string[];
 };
 
 export const CarruselDetalle: React.FC<ImageCarouselProps> = ({ images }) => {

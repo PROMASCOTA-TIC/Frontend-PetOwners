@@ -1,52 +1,43 @@
 "use client";
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DeleteOutline } from '@mui/icons-material'
 import { Box, Button, Grid2, IconButton, Typography } from '@mui/material'
 import ProductImage from "@/assets/images/productImage.png";
 import Image from 'next/image'
+import { useShoppingCartStore } from '@/store/shoppingCartStore';
+import Link from 'next/link';
+import { DetallePago } from './DetallePago';
 
-const initialProducts = [
-    {
-        id: 1,
-        name: "Producto 1",
-        description: "Descripción del producto",
-        price: 10,
-        daysLeft: 7,
-        quantity: 1,
-    },
-    {
-        id: 2,
-        name: "Producto 2",
-        description: "Descripción del producto",
-        price: 5,
-        daysLeft: 5,
-        quantity: 1,
-    },
-]
 
 export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) => number) => void }) => {
-    const [products, setProducts] = useState(initialProducts);
+    const [loaded, setLoaded] = useState(false);
+    const productsInCart = useShoppingCartStore((state) => state.cart);
+    const updateItemQuantity = useShoppingCartStore((state) => state.updateItemQuantity);
+    const removeItem = useShoppingCartStore((state) => state.removeItem);
 
-    const handleAddProduct = (index: number) => {
-        const updatedProducts = products.map((product, i) =>
-            i === index ? { ...product, quantity: product.quantity + 1 } : product
-        );
-        setProducts(updatedProducts);
+    useEffect(() => {
+        setLoaded(true);
+    }, [])
+
+
+    if (!loaded) {
+        return <p>Cargando...</p>
+    }
+
+    const handleAddProduct = (product: any) => {
+        updateItemQuantity(product, product.quantity + 1);
     };
 
-    const handleLessProduct = (index: number) => {
-        const updatedProducts = products.map((product, i) =>
-            i === index && product.quantity > 0
-                ? { ...product, quantity: product.quantity - 1 }
-                : product
-        );
-        setProducts(updatedProducts);
+    const handleLessProduct = (product: any) => {
+        if (product.quantity === 1) {
+            return;
+        }
+        updateItemQuantity(product, product.quantity - 1);
     };
 
-    const handleDeleteProduct = (id: number) => {
-        const updatedProducts = products.filter((product) => product.id !== id);
-        setProducts(updatedProducts);
+    const handleDeleteProduct = (product: any) => {
+        removeItem(product);
     };
 
     return (
@@ -60,9 +51,10 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                     Carro de compras
                 </Typography>
             </Grid2>
-            <Grid2 size={{ xs: 12, md: 7 }}>
-                {products.map((product, index) => (
-                    <Box key={index} className="flex flex-col"
+            <Grid2 size={{ xs: 12, md: 7 }} sx={{ marginBottom: "21px" }}>
+                {/* {products.map((product, index) => ( */}
+                {productsInCart.map((product, index) => (
+                    <Box key={product.id} className="flex flex-col"
                         sx={{
                             marginLeft: { xs: "21px", sm: "55px" },
                             gap: { xs: "8px", sm: "13px" },
@@ -73,33 +65,37 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                 sx={{
                                     width: { xs: "340px", sm: "640px" },
                                     height: { xs: "113px", sm: "173px" },
-                                    gap: { xs: "8px", sm: "21px" },
+                                    gap: { xs: "8px", sm: "13px" },
                                 }}
                             >
-                                <Box
-                                    sx={{
-                                        marginLeft: { xs: "13px", sm: "21px" },
-                                    }}
-                                >
-                                    <Image src={ProductImage} alt={"Producto"}
-                                        style={{
-                                            height: "75%",
-                                        }}
+                                {/* <div className="ms-e13 flex items-center">
+                                    <input 
+                                        type="checkbox" 
+                                        className='w-6 h-6 cursor-pointer accent-primary'
+                                        value={product.id}
+                                        checked={product.checked}
                                     />
-                                </Box>
+                                </div> */}
+                                    <Image src={typeof product.multimediaFiles === 'string' ? product.multimediaFiles.split(',')[0] : ''} alt={"Producto"}
+                                        width={120}
+                                        height={150}
+                                        className='ms-e13'
+                                    />
                                 <Box className="flex flex-col"
                                     sx={{
                                         gap: { xs: "3px", sm: "8px" },
                                     }}
                                 >
-                                    <Typography className="text-secondary font-bold"
+                                    <Typography className="text-secondary font-bold line-clamp-1"
                                         sx={{
                                             fontSize: { xs: "12px", sm: "18px" },
                                         }}
                                     >
-                                        {product.name}
+                                        <Link href={`/items-detail/${product.id}`} passHref className='hover:underline cursor-pointer'>
+                                            {product.name}
+                                        </Link>
                                     </Typography>
-                                    <Typography className="text-primary font-bold"
+                                    <Typography className="text-primary font-bold line-clamp-2"
                                         sx={{
                                             fontSize: { xs: "12px", sm: "18px" },
                                             display: "block",
@@ -115,14 +111,14 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                             fontSize: { xs: "12px", sm: "18px" }
                                         }}
                                     >
-                                        ${product.price}
+                                        ${product.finalPrice}
                                     </Typography>
                                     <Typography className="text-primary"
                                         sx={{
                                             fontSize: { xs: "10px", sm: "14px" }
                                         }}
                                     >
-                                        Días restantes en el carro: {product.daysLeft}
+                                        Dias restantes: {product.addedAt ? Math.ceil((new Date(product.addedAt).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : 'N/A'}
                                     </Typography>
                                 </Box>
                                 <Box className="flex flex-col items-center justify-center border-l border-quintenary"
@@ -155,7 +151,7 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                                 fontSize: { xs: "12px", sm: "18px" },
                                                 padding: { xs: "1px", sm: "8px" },
                                             }}
-                                            onClick={() => handleAddProduct(index)}
+                                            onClick={() => handleAddProduct(product)}
                                         >
                                             +
                                         </Button>
@@ -167,7 +163,7 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                                 fontSize: { xs: "14px", sm: "18px" },
                                                 padding: { xs: "1px", sm: "5px" },
                                             }}
-                                            onClick={() => handleLessProduct(index)}
+                                            onClick={() => handleLessProduct(product)}
                                         >
                                             -
                                         </Button>
@@ -182,7 +178,7 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                     height: { xs: "113px", sm: "173px" },
                                     gap: { xs: "5px", sm: "13px" },
                                 }}
-                                onClick={() => { handleDeleteProduct(product.id) }}
+                                onClick={() => { handleDeleteProduct(product) }}
                             >
                                 <Typography className=" text-center font-bold"
                                     sx={{
@@ -247,95 +243,20 @@ export const Resumen = (props: { setActiveStep: (step: (prevActiveStep: number) 
                                 </Button>
                             </Box>
                         </Box>
-                        {index < products.length - 1 && <hr className="my-e34 border-t border-quintenary" />}
+                        {index < productsInCart.length - 1 && <hr className="my-e34 border-t border-quintenary" />}
                     </Box>
                 ))}
             </Grid2>
             <Grid2 size={{ xs: 12, md: 5 }} className="flex flex-col items-center">
-                <Box className="flex flex-col items-center bg-black10 pt-e21 pb-e21 rounded-b10"
+                <DetallePago />
+                <Typography className="text-secondary font-bold mt-e8"
                     sx={{
-                        width: { xs: "80%", sm: "90%" },
-                        gap: { xs: "8px", sm: "13px" },
+                        fontSize: { xs: "14px", sm: "18px" },
                     }}
                 >
-                    <Typography className="font-bold text-primary"
-                        sx={{
-                            fontSize: { xs: "16px", sm: "24px" },
-                        }}
-                    >
-                        Resumen del pedido
-                    </Typography>
-                    <Box className="flex flex-row border-b border-quintenary"
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "80%",
-                        }}
-                    >
-                        <Typography className="text-primary"
-                            sx={{
-                                fontSize: { xs: "14px", sm: "18px" },
-                            }}
-                        >
-                            Subtotal
-                        </Typography>
-                        <Typography className="text-secondary"
-                            sx={{
-                                fontSize: { xs: "14px", sm: "18px" },
-                            }}
-                        >
-                            $12.75
-                        </Typography>
-                    </Box>
-                    <Box className="flex flex-row border-b border-quintenary"
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "80%",
-                        }}
-                    >
-                        <Typography className="text-primary"
-                            sx={{
-                                fontSize: { xs: "14px", sm: "18px" },
-                            }}
-                        >
-                            Impuestos
-                        </Typography>
-                        <Typography
-                            className="text-secondary"
-                            sx={{
-                                fontSize: { xs: "14px", sm: "18px" },
-                            }}
-                        >
-                            $2.25
-                        </Typography>
-                    </Box>
-                    <Box className="flex flex-row mt-e13 border-quintenary"
-                        sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "80%",
-                        }}
-                    >
-                        <Typography className="text-primary font-bold"
-                            sx={{
-                                fontSize: { xs: "14px", sm: "18px" },
-                            }}
-                        >
-                            TOTAL
-                        </Typography>
-                        <Typography className="text-secondary font-bold"
-                            sx={{
-                                fontSize: { xs: "14px", sm: "18px" },
-                            }}
-                        >
-                            $15.00
-                        </Typography>
-                    </Box>
-                </Box>
+                    Nota: Los impuestos se cobran a los articulos que aplican.
+                </Typography>
+
                 <Button className="bg-secondary text-white rounded-b20 mt-e21 p-e8"
                     sx={{
                         width: { xs: "80%", sm: "90%" },

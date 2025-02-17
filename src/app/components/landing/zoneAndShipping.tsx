@@ -1,28 +1,49 @@
 "use client";
-import React from "react";
-import { MenuItem, FormControl, Select, InputLabel, SelectChangeEvent } from "@mui/material";
+import React, { useState } from "react";
+import { MenuItem, FormControl, Select, InputLabel, SelectChangeEvent, Tooltip } from "@mui/material";
 import { useShoppingCartStore } from "@/store/shoppingCartStore";
+import HttpService from "@/config/services/httpsService";
+import Link from "next/link";
+import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
 
 export const ZoneAndShipping = () => {
     const [delivery, setDelivery] = React.useState<string>("");
     const [sector, setSector] = React.useState<string>("");
     const [address, setAddress] = React.useState<string>("");
-    const setBuyType = useShoppingCartStore( state => state.setBuyType );
-    const buyType = useShoppingCartStore( state => state.buyType );
+    const setBuyType = useShoppingCartStore(state => state.setBuyType);
+    const buyType = useShoppingCartStore(state => state.buyType);
+    const [userAddress, setuserAddress] = useState([])
 
     const handleDeliveryChange = (event: SelectChangeEvent<string>) => {
         const value = event.target.value;
         setDelivery(event.target.value);
-        console.log(value);
+        // console.log(value);
         setBuyType(value);
     };
 
     const handleSectorChange = (event: SelectChangeEvent<string>) => {
         setSector(event.target.value);
+        getDeliveryAddresses();
     };
 
     const handleAddressChange = (event: SelectChangeEvent<string>) => {
         setAddress(event.target.value);
+    };
+
+    const getDeliveryAddresses = async () => {
+        // const userId = localStorage.getItem("petowner_id");
+        const userId = "de6bcc0d-e07d-4121-aabc-3a2376eb3ee4";
+
+        const resp = await HttpService.get("/addresses");
+        const addresses = resp.data;
+        console.log(addresses);
+
+        if (addresses.length === 0) {
+            return;
+        } else {
+            const petOwnerAddresses = addresses.filter((address: any) => address.userid === userId);
+            setuserAddress(petOwnerAddresses);
+        }
     };
 
     return (
@@ -60,6 +81,7 @@ export const ZoneAndShipping = () => {
                         borderRadius: "16px",
                         flexShrink: 0,
                     }}
+                    disabled={buyType === "pick-up" || buyType === ""}
                 >
                     <InputLabel>Sector</InputLabel>
                     <Select
@@ -85,7 +107,7 @@ export const ZoneAndShipping = () => {
                         borderRadius: "16px",
                         flexShrink: 0,
                     }}
-                    disabled={buyType === "pick-up" || buyType === ""}
+                    disabled={buyType === "pick-up" || sector === ""}
                 >
                     <InputLabel>Dirección</InputLabel>
                     <Select
@@ -93,10 +115,19 @@ export const ZoneAndShipping = () => {
                         onChange={handleAddressChange}
                         label="Dirección"
                     >
-                        <MenuItem value="Casa">Casa</MenuItem>
-                        <MenuItem value="Oficina">Oficina</MenuItem>
+                        {
+                            userAddress && userAddress.map((address: any) => (
+                                <MenuItem key={address.id} value={address.id}>{address.addressName}</MenuItem>
+                            ))
+                        }
                     </Select>
                 </FormControl>
+
+                <Tooltip title="Crear una direccion" placement="right-start">
+                    <Link href="/account-settings/informacionEntrega">
+                        <NotListedLocationIcon className="text-aux1" fontSize="large" />
+                    </Link>
+                </Tooltip>
             </div>
         </div>
     );

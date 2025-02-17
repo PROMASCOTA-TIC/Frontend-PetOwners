@@ -10,6 +10,8 @@ import { iconWhite } from '@/assets/images';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
 import { useShoppingCartStore } from '@/store/shoppingCartStore';
+import HttpService from '@/config/services/httpsService';
+import { set } from 'zod';
 
 const settings = [
     { path: '/account-settings', text: 'Configurar cuenta' },
@@ -18,7 +20,23 @@ const settings = [
 
 const NavbarEm: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-    const carItems = useShoppingCartStore((state) => state.getCounter());
+    const carItems = useShoppingCartStore((state) => state.getTotalItems());
+    const [searchValue, setSearchValue] = React.useState('')
+    const [marketItems, setMarketItems] = React.useState([])
+    const [results, setResults] = React.useState([])
+    const [loaded, setLoaded] = React.useState(false);
+
+    React.useLayoutEffect(() => {
+        setLoaded(true);
+    }, [])
+
+    React.useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            handleSearch(searchValue);
+        }, 300);
+
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchValue]);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -27,6 +45,17 @@ const NavbarEm: React.FC = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleClickSearchBar = async () => {
+        const resp = await HttpService.get('products');
+        const items = resp.data;
+        setMarketItems(items);
+    }
+
+    const handleSearch = (value: string) => {
+        const items = marketItems.filter((item: any) => item.name.toLowerCase().includes(value.toLowerCase()));
+        setResults(items);
+    }
 
     return (
         <AppBar position="static"
@@ -52,7 +81,7 @@ const NavbarEm: React.FC = () => {
                                     display: { xs: 'none', md: 'block' },
                                 }}
                             >
-                                PROMASCOTA
+                                PROMASKOTA
                             </Typography>
                             <Image src={iconWhite} alt="Logo" width={40} height={40} />
                         </Box>
@@ -81,8 +110,41 @@ const NavbarEm: React.FC = () => {
                                     },
                                 }}
                                 size="small"
+                                value={searchValue}
+                                onClick={handleClickSearchBar}
+                                onChange={(e) => setSearchValue(e.target.value)}
                             />
                         </FormControl>
+
+                        {searchValue && (
+                            <Box
+                                sx={{
+                                    position: 'absolute',
+                                    top: '60px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    bgcolor: 'background.paper',
+                                    boxShadow: 3,
+                                    zIndex: 10,
+                                    maxHeight: '300px',
+                                    overflowY: 'auto',
+                                    width: '50%',
+                                    borderRadius: '8px',
+                                }}
+                            >
+                                {results.length > 0 ? (
+                                    results.map((item: any) => (
+                                        <MenuItem key={item.id}>
+                                            <Link href={`/items-detail/${item.id}`} className='w-full text-primary'>
+                                                {item.name}
+                                            </Link>
+                                        </MenuItem>
+                                    ))
+                                ) : (
+                                    <Typography sx={{ p: 2 }} className='w-full text-primary'>No results found</Typography>
+                                )}
+                            </Box>
+                        )}
                     </Grid2>
 
                     {/* Menú de cuenta visible en todas las pantallas */}
@@ -133,7 +195,7 @@ const NavbarEm: React.FC = () => {
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, display: 'flex', alignItems: 'center' }}> */}
                                 <IconButton sx={{ p: 0, display: 'flex', alignItems: 'center' }} href='/cart'>
-                                    <Badge badgeContent={carItems} color="success">
+                                    <Badge badgeContent={loaded ? carItems : null} color="success">
                                         <ShoppingCartIcon sx={{ color: 'white', fontSize: { xs: 28, md: 40 } }} />
                                     </Badge>
                                 </IconButton>

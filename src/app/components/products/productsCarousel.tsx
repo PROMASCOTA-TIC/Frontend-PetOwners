@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import ProductCard from './productCard';
-import { StaticImageData } from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
@@ -12,20 +12,26 @@ import {
 } from "@/components/ui/carousel"
 import { Skeleton, Stack } from '@mui/material';
 import HttpService from '@/config/services/httpsService';
+import { NoRecordsFeedback } from '../feedback/noRecordsFeedback';
 
 interface Product {
+    id: string;
     name: string;
     description: string;
     finalPrice: number;
-    imageUrl: StaticImageData;
+    multimediaFiles: string;
+    categoryId?: string;
 }
 
 interface ProductCarouselProps {
-    type: 'nuevos' | 'mas vendidos';
+    type: 'nuevos' | 'mas vendidos' | 'related';
+    id?: string;
+    categoryId?: string;
 }
 
-export default function ProductsCarousel({ type }: ProductCarouselProps) {
+export default function ProductsCarousel({ type, id, categoryId }: ProductCarouselProps) {
     const [productsList, setProductsList] = useState<Product[]>([]);
+    const [noRecords, setNoRecords] = useState(false);
 
     useEffect(() => {
         getProductsList();
@@ -33,22 +39,47 @@ export default function ProductsCarousel({ type }: ProductCarouselProps) {
 
     const getProductsList = async () => {
         if (type === 'nuevos') {
-            const resp = await HttpService.get('/products')
+            try {
+                const resp = await HttpService.get('products/inventory/recent-products')
 
-            if (resp.status === 200) {
-                console.log(resp.data)
-                setProductsList(resp.data)
-            } else {
+                if (resp.status === 200) {
+                    console.log(resp.data)
+                    setProductsList(resp.data)
+                } else {
+                    console.log('Error al obtener los productos')
+                }
+            } catch (error) {
                 console.log('Error al obtener los productos')
+                setNoRecords(true);
             }
         } else if (type === 'mas vendidos') {
-            const resp = await HttpService.get('/products')
+            try {
+                const resp = await HttpService.get('products/inventory/top-selling-products')
 
-            if (resp.status === 200) {
-                console.log(resp.data)
-                setProductsList(resp.data)
-            } else {
+                if (resp.status === 200) {
+                    console.log(resp.data)
+                    setProductsList(resp.data)
+                } else {
+                    console.log('Error al obtener los productos')
+                }
+            } catch (error) {
                 console.log('Error al obtener los productos')
+                setNoRecords(true);
+            }
+        } else if (type === 'related') {
+            try {
+                const resp = await HttpService.get(`products/recomendations/${categoryId}`)
+                console.log('resp de recomendaciones', resp.data)
+
+                if (resp.status === 200) {
+                    setProductsList(resp.data)
+
+                } else {
+                    console.log('Error al obtener los productos')
+                }
+            } catch (error) {
+                console.log('Error al obtener los productos')
+                setNoRecords(true);
             }
         }
     }
@@ -65,10 +96,18 @@ export default function ProductsCarousel({ type }: ProductCarouselProps) {
                                         <Card>
                                             <CardContent className="flex aspect-square items-center justify-center p-6">
                                                 <ProductCard
+                                                    id={product.id}
                                                     title={product.name}
                                                     description={product.description}
                                                     price={product.finalPrice}
-                                                    imageUrl={product.imageUrl || ""}
+                                                    imageUrl={
+                                                        Array.isArray(product.multimediaFiles) 
+                                                            ? product.multimediaFiles[0] || "" 
+                                                            : typeof product.multimediaFiles === "string" 
+                                                                ? product.multimediaFiles.split(',')[0] 
+                                                                : ""
+                                                    }
+                                                    data={product}
                                                 />
                                             </CardContent>
                                         </Card>
@@ -76,6 +115,7 @@ export default function ProductsCarousel({ type }: ProductCarouselProps) {
                                 </CarouselItem>
                             ))
                         ) : (
+                            !noRecords &&
                             <div className='flex justify-center gap-e55 ms-e63'>
                                 {
                                     Array.from({ length: 4 }).map((_, index) => (
@@ -93,6 +133,11 @@ export default function ProductsCarousel({ type }: ProductCarouselProps) {
                 </CarouselContent>
                 <CarouselPrevious className='text-primary bg-terciary hidden md:flex' />
                 <CarouselNext className='text-primary bg-terciary hidden md:flex' />
+                {
+                    noRecords && (
+                        <NoRecordsFeedback />
+                    )
+                }
             </Carousel>
         </div>
     );

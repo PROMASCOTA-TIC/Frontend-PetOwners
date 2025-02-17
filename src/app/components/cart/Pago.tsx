@@ -3,17 +3,38 @@ import { Box, Button, Grid2, Typography } from '@mui/material'
 import { useState } from 'react'
 import { Tarjeta } from './Tarjeta'
 import { Transferencia } from './Transferencia'
+import { useShoppingCartStore } from '@/store/shoppingCartStore'
+import HttpService from '@/config/services/httpsService'
 
 export const Pago = () => {
     const [payMethod, setPayMethod] = useState('')
+    const buyType = useShoppingCartStore((state) => state.buyType);
 
     const handleCardMethod = async () => {
-        setPayMethod('Card')
+        setPayMethod('Debit Card')
     }
 
     const handleTransferMethod = async () => {
         setPayMethod('Transfer')
     }
+
+    const handleStartOrder = async () => {
+
+        const createOrderData = {
+            userId: "de6bcc0d-e07d-4121-aabc-3a2376eb3ee4",
+            homeDelivery: buyType === 'delivery' ? true : false,
+            paymentMethod: payMethod,
+            items: useShoppingCartStore.getState().cart.map((item) => {
+                return {
+                    productId: item.id,
+                    quantity: item.quantity
+                }
+            })
+        }
+
+        // const resp = await HttpService.post('/orders', createOrderData);
+
+    };
 
     return (
         <>

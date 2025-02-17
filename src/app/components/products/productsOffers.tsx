@@ -6,31 +6,54 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Skeleton, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import HttpService from '@/config/services/httpsService';
+import { FeedbackNoRecords } from '@/assets/images';
+import { NoRecordsFeedback } from '../feedback/noRecordsFeedback';
 
 interface ProductOffer {
     id: number;
     labe: string;
-    imageSrc: StaticImageData;
+    imageUrl: string;
     productName: string;
     discountedPrice: string;
     endDate: string;
 }
 
 export default function ProductOffers () {
-    const [offersList, setOffersList] = useState<ProductOffer[]>([])
+    const [offersList, setOffersList] = useState<ProductOffer[]>([]);
+    const [noRecords, setNoRecords] = useState(false);
 
     useEffect(() => {
         getOffersList();
     }, []);
 
     const getOffersList = async () => {
-        const resp = await HttpService.get('/offers')
-
-        if (resp.status === 200) {
-            console.log(resp.data.data)
-            setOffersList(resp.data.data)
-        } else {
+        try {
+            const resp = await HttpService.get('/offers')
+            let newOffersList: any[] = [];
+    
+            if (resp.status === 200) {
+                for (const offer of resp.data.data) {
+                    const imageUrl = await getItemsOfferImage(offer.productId);
+                    newOffersList.push({
+                        ...offer,
+                        imageUrl
+                    });
+                }
+                setOffersList(newOffersList);
+            } else {
+                console.log('Error al obtener los productos')
+            }
+        } catch (error) {
             console.log('Error al obtener los productos')
+            setNoRecords(true);
+        }
+    }
+
+    const getItemsOfferImage = async (id: string) => {
+        const resp = await HttpService.get(`/products/${id}`)
+        if (resp.status === 200) {
+            const multimediaItems = resp.data.multimediaFiles;
+            return multimediaItems.split(',')[0];
         }
     }
 
@@ -56,7 +79,7 @@ export default function ProductOffers () {
                                                     </div>
                                                     <div className="flex justify-center mt-4">
                                                         <Image
-                                                            src={product.imageSrc}
+                                                            src={product.imageUrl}
                                                             alt={product.productName}
                                                             width={150}
                                                             height={150}
@@ -70,6 +93,7 @@ export default function ProductOffers () {
                                 </CarouselItem>
                             ))
                         ) : (
+                            !noRecords &&
                             <div className='flex justify-center gap-e55 ms-e63'>
                                 {
                                     Array.from({ length: 4 }).map((_, index) => (
@@ -87,6 +111,11 @@ export default function ProductOffers () {
                 </CarouselContent>
                 <CarouselPrevious className='text-primary bg-terciary hidden md:flex' />
                 <CarouselNext className='text-primary bg-terciary hidden md:flex' />
+                {
+                    noRecords && (
+                        <NoRecordsFeedback />
+                    )
+                }
             </Carousel>
         </div>
     );
