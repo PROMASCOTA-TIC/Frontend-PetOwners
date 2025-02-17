@@ -3,7 +3,7 @@ import { ProductsCarousel, ProductOffers } from "../components";
 import { productImage } from "@/assets/images";
 import { ZoneAndShipping } from "../components/landing/zoneAndShipping";
 import TipoMascota from "../components/landing/tipoMascota";
-import PieDePagina from "@/components/ui/footer/pieDePagina";
+import PieDePagina from "@/components/ui/footer/PieDePagina";
 
 const products = [
   {

@@ -1,25 +1,25 @@
 "use client";
 
-import { Box, Button, CircularProgress } from "@mui/material";
-import { Download } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { Box, Button, CircularProgress } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 
-import "/src/assets/styles/gestionContenido/general.css";
-import "/src/assets/styles/gestionContenido/estilos.css";
-import { URL_BASE } from "@/config/config";
+import '/src/assets/styles/gestionContenido/general.css';
+import '/src/assets/styles/gestionContenido/estilos.css';
+
+import { useParams } from 'next/navigation';
+import { URL_BASE } from '@/config/config';
 
 interface Articulo {
     id: string;
     categoria: string;
     titulo: string;
     descripcion: string;
-    imagenes: string[]; // Cambio a array para manejar múltiples imágenes
+    imagenes: string[];
     bibliografia: string;
     autor: string;
 }
 
-const EntradaArticulo: React.FC = () => {
+const EntradaPubliReportaje: React.FC = () => {
     const { id } = useParams(); // Obtiene el ID del artículo desde la URL
     const [articulo, setArticulo] = useState<Articulo | null>(null);
     const [loading, setLoading] = useState(true);
@@ -27,13 +27,13 @@ const EntradaArticulo: React.FC = () => {
     useEffect(() => {
         const fetchArticulo = async () => {
             try {
-                const response = await fetch(`${URL_BASE}links/detail/${id}`);
+                const response = await fetch(`${URL_BASE}advertorials/detail/${id}`);
                 const data = await response.json();
                 console.log("Datos del artículo:", data); // Log de verificación
 
                 // Adaptación de las propiedades del backend al formato esperado en el frontend
                 setArticulo({
-                    id: data.linkId, // Propiedad `linkId` del backend
+                    id: data.advertorialId,
                     categoria: data.category?.name || "Sin categoría", // Nombre de la categoría
                     titulo: data.title || "Título no disponible",
                     descripcion: data.description || "Descripción no disponible",
@@ -41,7 +41,7 @@ const EntradaArticulo: React.FC = () => {
                     autor: data.ownerName || "Desconocido",
                     imagenes: data.imagesUrl
                         ? data.imagesUrl.split(",").map((url: string) => url.trim())
-                        : [], // Si no hay imágenes, usa un placeholder
+                        : [],
                 });
             } catch (error) {
                 console.error("Error al obtener los datos del artículo:", error);
@@ -61,7 +61,7 @@ const EntradaArticulo: React.FC = () => {
             <div
                 className="flex-center"
                 style={{
-                    height: "100vh",
+                    height: "66vh",
                     flexDirection: "column",
                     gap: "20px",
                 }}
@@ -79,9 +79,8 @@ const EntradaArticulo: React.FC = () => {
     return (
         <Box sx={{ padding: "34px 55px", gap: "21px" }}>
             <h1 className="h1-bold txtcolor-primary" style={{ padding: '21px 0px' }}>{articulo?.categoria}</h1>
-
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div className="flex-column txt-justify" style={{ width: articulo.imagenes.length > 0 ? "80%" : "100%", gap: "21px" }}>
+                <div className="flex-column txt-justify" style={{ width: "80%", gap: "21px", paddingRight: "34px" }}>
                     <h2
                         className="h2-semiBold txtcolor-secondary txt-justify"
                         style={{
@@ -115,38 +114,21 @@ const EntradaArticulo: React.FC = () => {
                     </p>
                 </div>
 
-                {/* 🔹 Solo se muestra si hay imágenes */}
-                {articulo.imagenes.length > 0 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                        {articulo.imagenes.map((imagen, index) => (
-                            <img
-                                key={index}
-                                src={imagen}
-                                className="articulo_imagen"
-                                alt={`Imagen ${index + 1} de ${articulo.titulo}`}
-                                style={{ width: "200px", borderRadius: "10px" }}
-                            />
-                        ))}
-                    </div>
-                )}
+                {/* Mostrar todas las imágenes */}
+                <div className="flex-column" style={{ gap: "10px", alignItems: "center" }}>
+                    {articulo.imagenes.map((imagen, index) => (
+                        <img
+                            key={index}
+                            src={imagen}
+                            className="articulo_imagen"
+                            alt={`Imagen ${index + 1} de ${articulo.titulo}`}
+                            style={{ width: "200px", borderRadius: "10px" }}
+                        />
+                    ))}
+                </div>
             </div>
-
-            <Box className="flex-center">
-                <Button
-                    className="boton_descargar"
-                    variant="contained"
-                    startIcon={<Download />}
-                    href={`${URL_BASE}links/download/${id}/pdf`}
-                    sx={{
-                        width: { xs: "auto", md: "auto" },
-                        height: { xs: "40px", md: "50px" },
-                    }}
-                >
-                    Descargar
-                </Button>
-            </Box>
         </Box>
     );
 };
 
-export default EntradaArticulo;
+export default EntradaPubliReportaje;
