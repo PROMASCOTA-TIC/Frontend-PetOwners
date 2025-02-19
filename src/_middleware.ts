@@ -1,62 +1,36 @@
-import axios from 'axios'
-import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
-import { URL_BASE } from './config/services/endpoints'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import HttpService from './config/services/httpsService';
 
-export async function middleware(request: NextRequest) {
+export async function middleware(req: NextRequest) {
+    const loginUrl = new URL('/auth/login', req.url);
+    const token = req.cookies.get('auth_cookie')?.value || '';
+
     try {
-        const token = request.cookies.get('auth_cookie')
-        const role = request.cookies.get('role')
-        const url = request.nextUrl.clone()
-
-        if (!token && url.pathname !== '/login') {
-            return NextResponse.redirect(new URL('/login', request.url))
+        if (!token || !(await isValidToken(token))) {
+            return NextResponse.redirect(loginUrl);
         }
-
-        const response = NextResponse.next();
-
-        if (token) {
-            const resp = await axios.get(`${URL_BASE}auth/verify`, {
-                headers: {
-                    Authorization: `Bearer ${token.value}`
-                }
-            })
-
-            const data = await resp.data
-
-            if (!data.token) {
-                return NextResponse.redirect(new URL('/login', request.url))
-            } else {
-
-                response.cookies.set('auth_cookie', data.token, {
-                    httpOnly: false,
-                    secure: false,
-                    // path: '/',
-                    maxAge: 60 * 60 * 2
-                })
-            }
-
-            if (role && role.value === 'seller') {
-                if (url.pathname === '/' || url.pathname === '/login') {
-                    return NextResponse.redirect(new URL('/home', request.url))
-                } else if (!url.pathname.startsWith('/home')) {
-                    return NextResponse.redirect(new URL('/home', request.url))
-                }
-            } else if (role && role.value === 'buyer') {
-                if (url.pathname === '/' || url.pathname === '/login') {
-                    return NextResponse.redirect(new URL('/duenos-mascotas', request.url))
-                } else if (!url.pathname.startsWith('/duenos-mascotas')) {
-                    return NextResponse.redirect(new URL('/duenos-mascotas', request.url))
-                }
-            }
-        }
-
-        return response;
+        return NextResponse.next();
     } catch (error) {
-        return NextResponse.redirect(new URL('/login', request.url))
+        console.error('Error in middleware:', error);
+        return NextResponse.redirect(loginUrl);
+    }
+}
+
+async function isValidToken(token: string): Promise<boolean> {
+    try {
+        const response = await HttpService.post(
+            'auth/verify-token',
+            { token },
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+        return response.data?.isValid || false;
+    } catch (error) {
+        console.error('Error verifying token:', error);
+        return false;
     }
 }
 
 export const config = {
-    matcher: ['/home', '/duenos-mascotas']
-}
+    matcher: ['/((?!^$|auth|login|_next/static|favicon.ico).*)'],
+};

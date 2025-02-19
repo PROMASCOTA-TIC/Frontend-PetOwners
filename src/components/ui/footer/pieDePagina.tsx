@@ -20,8 +20,8 @@ const PieDePagina = () => {
             <div>
                 <p className='n-bold'>Información De Contacto</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', gap: '55px' }} className='minima-regular'>
-                    <p>0999999999</p>
-                    <p>0999999999</p>
+                    <p>0984575862</p>
+                    <p>0984575862</p>
                 </div>
                 <p className='minima-regular'>info@promascota.com</p>
             </div>

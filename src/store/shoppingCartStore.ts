@@ -59,7 +59,7 @@ export const useShoppingCartStore = create<ShoppingCartState>()(
 
                 const tax = parseFloat((subTotalItemsWithTax * 0.15).toFixed(2));
                 const subtotal = parseFloat((subTotalItemsWithoutTax + subTotalItemsWithTax - tax).toFixed(2));
-                const total = subTotalItemsWithoutTax + subTotalItemsWithTax;
+                const total = parseFloat((subTotalItemsWithoutTax + subTotalItemsWithTax).toFixed(2));
                 const itemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
                 return {

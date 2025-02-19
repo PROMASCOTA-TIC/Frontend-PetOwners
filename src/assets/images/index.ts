@@ -7,6 +7,8 @@ import petAvatar from './pet-avatar.png';
 import productosCarousel from './mascotas-mayoristas.webp';
 import FondoAdmin from './fondoAdmin.png';
 import FeedbackNoRecords from './no-results-found.png';
+import PagoExitoso from './pago-exitoso.png';
+import PaidFailed from './pay-fail.png';
 
 export { 
     icon, 
@@ -18,4 +20,6 @@ export {
     productosCarousel,
     FondoAdmin,
     FeedbackNoRecords,
+    PagoExitoso,
+    PaidFailed,
 };

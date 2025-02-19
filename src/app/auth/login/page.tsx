@@ -32,7 +32,7 @@ export default function Login() {
                 // color: theme.palette.primary.main,
               }}
               className="text-primary">
-              PROMASCOTA
+              PROMASKOTA
             </Typography>
             <Image src={icon}
               style={{
@@ -93,6 +93,20 @@ export default function Login() {
             }}
             priority
           />
+          <Typography
+            sx={{
+              position: 'absolute',
+              top: '5%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              width: '100%',
+            }}
+            className="text-primary-40 text-fs18 sm:text-fs24 md:text-[42px]"
+          >
+            Dueños de Mascotas
+          </Typography>
         </Grid2>
       </Grid2>
     </div>

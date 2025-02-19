@@ -1,10 +1,12 @@
 'use client';
 
+import HttpService from '@/config/services/httpsService';
 import { loginSchema } from '@/validations/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, Button, FormLabel, IconButton, InputAdornment, OutlinedInput, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
@@ -13,8 +15,12 @@ type Inputs = {
     password: string;
 }
 
-
 export const LoginForm = () => {
+    const [notification, setNotification] = useState<{
+        open: boolean;
+        message: string;
+        type: 'success' | 'error' | 'info' | 'warning';
+    }>({ open: false, message: '', type: 'info' });
 
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
         resolver: zodResolver(loginSchema),
@@ -22,12 +28,51 @@ export const LoginForm = () => {
     });
 
     const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter()
 
     const handleClickShowPassword: () => void = () => setShowPassword((show) => !show);
 
-    const onSubmit = (data: Inputs) => {
-        console.log({ ...data });
-        window.location.href = '/';
+    const onSubmit = async (data: Inputs) => {
+        try {
+            const response = await HttpService.post(`auth/login-pet-owner`,
+                data,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+
+            if (response.status === 200 || response.status === 201) {
+                setNotification({
+                    open: true,
+                    message: 'Inicio de sesión exitoso',  
+                    type: 'success',
+                });
+            }
+
+            const expirationTime = new Date(new Date().getTime() + 3600 * 1000);
+            document.cookie = `auth_cookie=${response.data.token}; expires=${expirationTime.toUTCString()}; path=/`;
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user_id', response.data.id);
+            localStorage.setItem('petowner_id', response.data.idEntrepreneur);
+            router.push('/');
+        } catch (error: any) {
+            if (error.response) {
+                const errorMessage = error.response.data.message;
+                setNotification({
+                    open: true,
+                    message: errorMessage.includes("Estado de la cuenta") ? errorMessage : "Credenciales incorrectas",
+                    type: error.response.status === 403 ? 'warning' : 'error',
+                });
+            } else {
+                setNotification({
+                    open: true,
+                    message: 'Error al conectar con el servidor',
+                    type: 'error',
+                });
+            }
+        }
     };
 
     return (
